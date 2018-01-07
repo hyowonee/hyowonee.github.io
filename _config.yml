@@ -8,26 +8,21 @@ baseurl: "/"
 site_heading: >
     효원이<span class="faded">의 블로그</span>
 
-email: your@email.com
-author: yourname
+email: popopowon@gmail.com
+author: Choi Hyowon
 # This description will show up in google search results
 # (for index page) etc.
 description: >
-    accent is, as Trump would put it, the best
+    효원이의 블로그
 
 # This will what will show against &copy; in the footer
-copyright: accent
+copyright: Choi Hyowon
 # Toggle your short bio, which will displayed on your index page
 # Just toggle it and run jekyll again to see
 intro: false         # Tip: Remove the span from site_heading if intro is set to true
 # This will be displayed in your intro
 short_bio: >
-    Welcome! This is <span>accent</span>, a mobile friendly theme for Jekyll. The main feature of this
-    theme is that you can change the accent color. Refer the
-    <a class="underline different-highlight" href="http://ankitsultana.com/accent/documentation.html">
-        Documentation
-    </a>
-    to know how.
+    효원이의 블로그입니다.
 
 permalink: /:title.html
 
@@ -43,9 +38,9 @@ about_stub: >
 
 about_footer: true
 
-twitter_username: AnkitSultana
-github_username: yourgithub
-facebook_id: yourusername
+#twitter_username: AnkitSultana
+github_username: hyowonee
+facebook_id: popopowon
 
 favicon: true
 favicon_location: "images/favicon.ico"
@@ -53,11 +48,11 @@ favicon_location: "images/favicon.ico"
 profile_picture: images/temp.png
 paginate: 5
 paginate_path: "/page/:num"
-tracking_id: UA-69243698-7 # GA Tracking ID
+#tracking_id: UA-69243698-7 # GA Tracking ID
 
 # Social Stuff | open graph and twitter cards
-og_image: "images/accent.png" # This will show in facebook thumbnails
-twitter_image: "http://ankitsultana.com/images/accent.png?1234" # This will show in twitter cards
+#og_image: "images/accent.png" # This will show in facebook thumbnails
+#twitter_image: "http://ankitsultana.com/images/accent.png?1234" # This will show in twitter cards
 
 ####################################
 ####################################
