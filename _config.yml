@@ -1,12 +1,12 @@
 # User Settings | Edit there as per required
 
 title: accent
-url: "http://ankitsultana.com"
-baseurl: "/accent"
+url: "https://hyowonee.github.io"
+baseurl: "/"
 
 # This will show up at the top of index page
 site_heading: >
-    foo <span class="faded">'s blog</span>
+    효원이<span class="faded">의 블로그</span>
 
 email: your@email.com
 author: yourname
