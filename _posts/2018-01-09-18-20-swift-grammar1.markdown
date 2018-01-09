@@ -41,22 +41,24 @@ default:
 ```
 ## 반복문
 ### for문
-1. `for i in 0..<10 { print(i) }` 는 `for i in 0…9 { print(i) }`로 쓸 수 있다.
-2.
+1. `for i in 0..<10 { print(i) }` 는
+`for i in 0…9 { print(i) }`로 쓸 수 있다.
+2. reserved()를 사용할 수 있다.
 ```
 let items = [1, 2, 3, 4, 5]
 for i in items.reserved() { print(i) }
 ```
-3.
+3. 리스트의 index, value 출력이 가능하다.
 ```
-let items =  [1, 2, 3, 4, 5] 리스트의 index, value 출력이 가능하다.
+let items =  [1, 2, 3, 4, 5]
 for(index, value) in items.enumerated() {
 	print (“\(index)  \(value)”)
 }
 ```
 리스트는 순서대로 나온다.
 4. dictionary의 경우,
-```let dict = [“a”:1, “b”:2, “c”:3]
+```
+let dict = [“a”:1, “b”:2, “c”:3]
 for item in dict {
 	print(“\(item.key) : \(item.value)”)
 }
@@ -65,7 +67,6 @@ for item in dict {
 딕셔너리는 순서 보장을 해주지 않아서 넣은 대로의 값이 나오지 않는다.
 
 ## Class
-*
 ```
 class Human {
 	var name: String = “” -> init 안써도 에러 안남
@@ -79,7 +80,6 @@ class Human {
 ```
 * `var human = Human ()` -> c++에서 처럼 new가 없어도 된다.
 사용할 때는 `human.name, human.age, human.gender` 처럼 사용
-*
 ```
 class Hyowon: Human {
 	override init() {
@@ -118,19 +118,19 @@ if (hyowon.name != nil) {
  과 같기 때문에 `hyowon.name`에서 name뒤에 뭐가 붙는다면 ?를 붙이고 name자체로만 쓴다면 붙이지 않아도 된다.
 
 ## Optional Binding
-*
+
 ```
 if var (let) email = optionalEmail {
 	print(email) // optionalEmail에 값이 존재하면 해당 값을 출력한다.
 }  // 값이 존재하지 않으면 if문을 그냥 지나친다.
 ```
-*
+
 ```
 if let name = optionalName, (let) email = optionalEmail {
 	// name과 email 값이 다 존재
 }
 ```
-*
+
 ```
 var optionalAge: Int? = 22
 if let age = optionalAge, age >= 20 {
