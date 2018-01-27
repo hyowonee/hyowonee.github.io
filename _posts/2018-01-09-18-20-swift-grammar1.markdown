@@ -15,7 +15,7 @@ author: Choi Hyowon
 * 상수 선언의 경우 let을 이용한다.
 `let 변수명 = “변수”`
 * 자료형
-```
+```swift
 var string: String = “String”
 var integer: Int = 1004
 var float: Float = 1.004
@@ -31,7 +31,7 @@ var dict: [String: Int] = [“a”:1, “b”:2, “c”:3]
 ### if문
 괄호 생략이 가능하다
 ### switch문
-```
+```swift
 switch a {
 case 1:
 	print(“1”) -> break문이 없어도 자동으로 빠져나간다.
@@ -44,12 +44,12 @@ default:
 1. `for i in 0..<10 { print(i) }` 는
 `for i in 0…9 { print(i) }`로 쓸 수 있다.
 2. reserved()를 사용할 수 있다.
-```
+```swift
 let items = [1, 2, 3, 4, 5]
 for i in items.reserved() { print(i) }
 ```
 3. 리스트의 index, value 출력이 가능하다.
-```
+```swift
 let items =  [1, 2, 3, 4, 5]
 for(index, value) in items.enumerated() {
 	print (“\(index)  \(value)”)
@@ -57,7 +57,7 @@ for(index, value) in items.enumerated() {
 ```
 리스트는 순서대로 나온다.
 4. dictionary의 경우,
-```
+```swift
 let dict = [“a”:1, “b”:2, “c”:3]
 for item in dict {
 	print(“\(item.key) : \(item.value)”)
@@ -67,7 +67,7 @@ for item in dict {
 딕셔너리는 순서 보장을 해주지 않아서 넣은 대로의 값이 나오지 않는다.
 
 ## Class
-```
+```swift
 class Human {
 	var name: String = “” -> init 안써도 에러 안남
 	var age: Int = 0 -> init 안써도 에러 안남
@@ -76,11 +76,11 @@ class Human {
 	init ()  {
 	//this 대신에 self를 쓴다.
 	self.gender = “male”
-	}
+}
 ```
 * `var human = Human ()` -> c++에서 처럼 new가 없어도 된다.
 사용할 때는 `human.name, human.age, human.gender` 처럼 사용
-```
+```swift
 class Hyowon: Human {
 	override init() {
 		super.init()
@@ -110,7 +110,7 @@ hyowon.changeName(newName: “hyowonee”) // 파라미터에 이런식으로 �
 * `var hyowon: Hyowon = Hyowon()`,
 `var name: String?` 이라고 하자.
 `hyowon.name?.func()` 이라는 코드가 있을 때, 이는
-```
+```swift
 if (hyowon.name != nil) {
 	hyowon.name.func()
 }
@@ -119,19 +119,19 @@ if (hyowon.name != nil) {
 
 ## Optional Binding
 
-```
+```swift
 if var (let) email = optionalEmail {
 	print(email) // optionalEmail에 값이 존재하면 해당 값을 출력한다.
 }  // 값이 존재하지 않으면 if문을 그냥 지나친다.
 ```
 
-```
+```swift
 if let name = optionalName, (let) email = optionalEmail {
 	// name과 email 값이 다 존재
 }
 ```
 
-```
+```swift
 var optionalAge: Int? = 22
 if let age = optionalAge, age >= 20 {
 // age값 존재, 20 이상인 경우
@@ -139,7 +139,7 @@ if let age = optionalAge, age >= 20 {
 ```
 ## Optional Chaining
 * optional 선언된 배열을 빈 배열인지 검사하려고 한다.
-```
+```swift
 let array: [String]? = []
 var isEmptyArray = false
 if let array = array, array.isEmpty {
@@ -149,7 +149,7 @@ if let array = array, array.isEmpty {
 }
 ```
 이 코드를
-```
+```swift
 let isEmptyArray = array?.isEmpty == true
 ```
 #swift

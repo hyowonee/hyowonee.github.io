@@ -1,8 +1,8 @@
 # User Settings | Edit there as per required
 
 title: 효원이의 블로그
-url: "https://hyowonee.github.io"
-baseurl: "/"
+# url: "https://hyowonee.github.io"
+# baseurl: "https://hyowonee.github.io"
 
 # This will show up at the top of index page
 site_heading: >
