@@ -4,14 +4,14 @@ author: Choi Hyowon
 ---
 # TableView 사용하기
 ## storyboard 연결
-<img src="images/tableView_storyboard.png“>
+<img src="../images/tableView_storyboard.png“>
 Outlet의 dataSource : TableView에 data를 정의해주기 위한 delegate interface이다.
 Outlet의 delegate : TableView에 이벤트를 정의하기 위한 delegate interface이다.
-<img src=“images/customCell_storyboard.png”>
+<img src=“../images/customCell_storyboard.png”>
 Prototype Cells의 개수를 늘이면 그와 연결된 새 Cocoa Touch class를 생성해주어야 한다. 생성 후, storyboard에서 만든 TableView Cell을 클릭하고 identify inspector의 class 이름을 똑같이 입력해야 storyboard와 연결된다. 
 또 attribute inspector의 identifier도 쉽게 클래스 이름과 동일히 입력해줘서 ViewController.swift에서 CustomCell을 재활용할 때 식별자로 입력하도록 한다.
-<img src=“images/customCell_label_storyboard.png”>
-<img src=“images/button_storyboard.png”>
+<img src=“../images/customCell_label_storyboard.png”>
+<img src=“../images/button_storyboard.png”>
 
 ## ViewController.swift
 ```swift
