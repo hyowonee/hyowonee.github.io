@@ -1,5 +1,5 @@
 ---
-title: Delegate Pattern
+title: Chaing Method Pattern
 author: Choi Hyowon
 ---
 # Chaning Method Pattern
