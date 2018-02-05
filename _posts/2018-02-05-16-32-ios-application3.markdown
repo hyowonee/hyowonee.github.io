@@ -160,7 +160,7 @@ class DetailViewController: UIViewController {
 Navigation Controller를 넣어서 ViewController와 DetailViewController를 연결해준다.
 ![Image](/images/networkStudy_control_storyboard.png)
 control키를 누른 상태에서 ViewController를 DetailViewController에 연결시키고 show로 해준다,
-![Image](/images/ networkStudy_navigationTitle_storyboard.png)
+![Image](/images/networkStudy_navigationTitle_storyboard.png)
 Navigation bar 이름을 Post로 해준다.
 ![Image](/images/networkStudy_storyboard.png)
 
