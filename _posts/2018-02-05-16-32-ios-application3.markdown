@@ -7,7 +7,7 @@ Alamofire은 IOS에서 많이 사용하는 Swift 기반의 HTTP 네트워크 통
 
 ## Alamofire 라이브러리 사용법
 1. Pods 폴더의 Podfile에 
-` pod ‘Alamofire’, ‘~> 버전’ ` 을 기입해주고 shell에서 `pod install`을 실행한다.
+`pod ‘Alamofire’, ‘~> 버전’` 을 기입해주고 shell에서 `pod install`을 실행한다.
 2. 네트워크 통신을 사용할 Controller.swift 파일에 `import Alamofire`를 해주고 clean, build 해준다.
  
 ## ObjectMapper 라이브러리란?
@@ -16,8 +16,8 @@ ObjectMapper를 사용하면 JSON 응답을 모델 객체로 변환하거나 그
 
 ## ObjectMapper 라이브러리 사용법
 1. Pods 폴더의 Podfile에 
-` pod ‘ObjectMapper’ , ‘~> 버전` 과
-` pod ‘AlamofireObjectMapper’, ‘~> 버전’ ` 을 기입해주고 shell에서 `pod install`을 실행한다.
+`pod ‘ObjectMapper’ , ‘~> 버전'` 과
+`pod ‘AlamofireObjectMapper’, ‘~> 버전’` 을 기입해주고 shell에서 `pod install`을 실행한다.
 
 2. 네트워크 통신을 사용할 Controller.swift 파일에 `import ObjectMapper` 와  `import AlamofireObjectMapper` 를 해주고 clean, build 해준다.
 
