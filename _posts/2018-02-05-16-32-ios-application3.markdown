@@ -142,6 +142,8 @@ class DetailViewController: UIViewController {
       loadPost()
   }
 	// Post로 받은 데이터를 뷰에 그려주는 함수
+    // 처음 ViewController에서 네트워크 통신 Alamofire.request("https://jsonplaceholder.typicode.com/posts")했을 경우에는 body가 없는데
+    // DetailViewController에서 Alamofire.request("https://jsonplaceholder.typicode.com/posts/\(id)")에는 body가 있을 경우를 가정하여 한번 더 호출
 	func loadPost() {
 		Alamofire.request("https://jsonplaceholder.typicede.com/	posts/\(id)")
 		// Post로 DataResponse의 데이터를 받아와서 response 변수에 넣어줌
