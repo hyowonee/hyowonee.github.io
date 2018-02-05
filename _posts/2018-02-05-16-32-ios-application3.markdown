@@ -2,7 +2,6 @@
 title: ios 어플 실전 공부 3차
 author: Choi Hyowon
 ---
-# IOS 어플 실전 공부 3차
 ## Alamofire 라이브러리란?
 Alamofire은 IOS에서 많이 사용하는 Swift 기반의 HTTP 네트워크 통신 라이브러리이다. 
 
