@@ -1,5 +1,5 @@
 ---
-title: Chaing Method Pattern
+title: Chaining Method Pattern
 author: Choi Hyowon
 ---
 # Chaning Method Pattern
