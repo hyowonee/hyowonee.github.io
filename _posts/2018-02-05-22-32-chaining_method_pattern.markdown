@@ -30,7 +30,7 @@ class Chain {
         Swift.print("Width: \(width), Height: \(height), Weight: \(weight)")
     }
 }
-
+ 
 let chain = Chain()
 
 // 메서드 체이닝 패턴을 안쓸때
