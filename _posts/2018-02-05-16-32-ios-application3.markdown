@@ -21,14 +21,20 @@ ObjectMapper를 사용하면 JSON 응답을 모델 객체로 변환하거나 그
 
 2. 네트워크 통신을 사용할 Controller.swift 파일에 `import ObjectMapper` 와  `import AlamofireObjectMapper` 를 해주고 clean, build 해준다.
 
+## AlamofireObjectMapper 라이브러리란?
+ObjectMapper를 사용하여 자동으로 JSON response data를 swift 객체로 변환시켜주는 Alamofire 라이브러리의 확장 라이브러리이다
+
 > AlamofireObjectMapper 안에 Alamofire와 ObjectMapper가 포함되어 있으므로 취향에 따라 AlamofireObjectMapper 하나만 사용해도 된다.
 
 ## 간단한 예제 코드
 Alamofire와 ObjectMapper를 적용해 보기 위해 다음과 같은 어플을 만들어 보았다.
-* JSONPlaceholder에서 HTTP 네트워크 통신으로  userId, id, title, body로 구성되어 있는 JSON을 받아온다. (GET이 아닌 POST를 이용)
+* JSONPlaceholder에서 HTTP 네트워크 통신으로  userId, id, title, body로 구성되어 있는 JSON을 받아온다.
 * title을 테이블 뷰에 적용하고, 셀(title)을 터치하면 해당 셀의 구체적 내용(body)을 네비게이션 바를 이용하여 새 화면에서 보여준다. 
 * 새 화면으로 넘어갈 때는 외부 라이브러리를 사용하여 로딩 바를 보여준다. 
 * Model, Controller, Cell (Custom한 Cell) 의 폴더에 나누어 구현하였다.
+
+> JSONPlaceholder : Fake Online REST API for Testing and Prototyping
+> GET POST DELETE PUT PATCH같은 HTTP 메서드를 사용하는 API를 REST API라고 한다.
 
 ### Post.swift (Model)
 ```swift
