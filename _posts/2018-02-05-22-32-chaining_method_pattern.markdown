@@ -1,8 +1,8 @@
 ---
-title: Chaining Method Pattern
+title: Method Chaining Pattern
 author: Choi Hyowon
 ---
-# Chaining Method Pattern
+# Method Chaining Pattern
 ```swift
 import Foundation
 
@@ -33,13 +33,13 @@ class Chain {
 
 let chain = Chain()
 
-// 체이닝 메서드 패턴을 안쓸때
+// 메서드 체이닝 패턴을 안쓸때
 chain.width = 100
 chain.height = 100
 chain.width = 100
 chain.print()
 
-// 체이닝 메서드 패턴을 쓸때
+// 메서드 체이닝 패턴을 쓸때
 chain.setWidth(width: 100)
     .setHeight(height: 100)
     .setWeight(weight: 100)
