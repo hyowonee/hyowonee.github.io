@@ -14,3 +14,6 @@ author: Choi Hyowon
 ## storyboard 구현
 설계한 어플의 뷰를 storyboard에 구현하였다.
 ![Image](/images/OneBobYoung_storyboard.png)
+
+특히 즐겨찾기 Button은 DOFavoirte Button 라이브러리(https://github.com/okmr-d/DOFavoriteButton)를 사용하여 애니메이션 효과를 주었다.
+![Image](/images/OneBobYoung_DOFavoirteButton_storyboard.png)
