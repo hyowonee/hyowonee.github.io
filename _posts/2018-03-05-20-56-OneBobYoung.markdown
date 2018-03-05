@@ -1,0 +1,8 @@
+---
+title: 원.밥.영 어플 프로젝트 2차 
+author: Choi Hyowon
+---
+
+## storyboard 수정
+이전에 설계한 어플의 뷰에서 TisprCardStack 라이브러리 사용으로 변경된 뷰를 storyboard에 반영하였다.
+![Image](/images/OneBobYoung_TisprCardStack_storyboard.png)
