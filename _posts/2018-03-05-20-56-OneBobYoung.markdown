@@ -2,7 +2,6 @@
 title: 원.밥.영 어플 프로젝트 2차 
 author: Choi Hyowon
 ---
-# 원밥영 어플 만들기 2차
 * Realm Database를 사용하였다.
 > Realm은 모바일 플랫폼이며 SQLite 및 Core Data를 대신한다.
 * DOFavoriteButton 라이브러리를 즐겨찾기 기능에 사용하였다.
