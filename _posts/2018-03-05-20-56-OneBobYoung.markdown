@@ -59,7 +59,7 @@ class Sentence: Object, Mappable {
 ```
 
 ## Cell 구현
-### SentenceCell
+### SentenceCell.swift
 ```swift
 class SentenceCell: UITableViewCell {
   @IBOutlet var englishLabel: UILabel!
@@ -98,7 +98,7 @@ class SentenceCell: UITableViewCell {
 ```
 
 ## Controller 구현
-### SentenceListViewController
+### SentenceListViewController.swift
 ```swift
 class SentenceListViewController: UIViewController {
   @IBOutlet var sentenceTableView: UITableView!
@@ -154,7 +154,7 @@ extension SentenceListViewController: UITableViewDelegate, UITableViewDataSource
 }
 ```
 
-### FavoritesViewController
+### FavoritesViewController.swift
 ```swift
 class FavoritesViewController: UIViewController {
 	@IBOutlet var favoritesSentenceTableView: UITableView!
@@ -191,3 +191,7 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
   }
 }
 ```
+
+## 결과
+![Image](/images/OneBobYoung_sentences_demo.png)
+![Image](/images/OneBobYoung_favorites_demo.png)
