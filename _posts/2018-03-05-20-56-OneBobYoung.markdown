@@ -20,41 +20,41 @@ import RealmSwift
 import Realm
 
 class Sentence: Object, Mappable {
-	// primaryKey로 사용할 id
-	@objc dynamic var id: Int = 0
-  @objc dynamic var english: String = ""
-  @objc dynamic var korean: String = ""
-	// 즐겨찾기 기능을 위한 변수
-  @objc dynamic var favorite: Bool = false
+    // primaryKey로 사용할 id
+    @objc dynamic var id: Int = 0
+    @objc dynamic var english: String = ""
+    @objc dynamic var korean: String = ""
+    // 즐겨찾기 기능을 위한 변수
+    @objc dynamic var favorite: Bool = false
+      
+    required convenience init?(map: Map) {
+        self.init()
+    }
     
-  required convenience init?(map: Map) {
-      self.init()
-  }
-  
-  override static func primaryKey() -> String? {
-      return "id"
-  }
-    
-  func mapping(map: Map) {
-      english <- map["english"]
-      korean <- map["korean"]  
-  }
-    
-  func incrementID() -> Int {
-      let realm = try! Realm()
-      return (realm.objects(Sentence.self).max(ofProperty: "id") as Int? ?? 0) + 1
-  }
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+      
+    func mapping(map: Map) {
+        english <- map["english"]
+        korean <- map["korean"]  
+    }
+      
+    func incrementID() -> Int {
+        let realm = try! Realm()
+        return (realm.objects(Sentence.self).max(ofProperty: "id") as Int? ?? 0) + 1
+    }
   
 	// 랜덤 문장 테스트를 위한 랜덤 함수  
   static func random() -> Sentence? {
-      let realm = try! Realm()
-      let sentences = realm.objects(Sentence.self)
-      if sentences.count == 0 {
-          return nil
-      }
-      let index = Int(arc4random_uniform(UInt32(sentences.count)))
-      return sentences[index]
-  }
+        let realm = try! Realm()
+        let sentences = realm.objects(Sentence.self)
+        if sentences.count == 0 {
+            return nil
+        }
+        let index = Int(arc4random_uniform(UInt32(sentences.count)))
+        return sentences[index]
+    }
 }
 ```
 
@@ -69,31 +69,31 @@ class SentenceCell: UITableViewCell {
   var id: Int = 0
 
   override func awakeFromNib() {
-      super.awakeFromNib()
-      // Initialization code
+        super.awakeFromNib()
+        // Initialization code
     }
 
   override func setSelected(_ selected: Bool, animated: Bool) {
-      super.setSelected(selected, animated: animated)
+        super.setSelected(selected, animated: animated)
 
-      // Configure the view for the selected state
+        // Configure the view for the selected state
   }
     
   @IBAction func doFavorite(sender: DOFavoriteButton) {
-      let realm = try! Realm()
-      let sentence = realm.objects(Sentence.self).filter("id == \(id)").first
-      if sender.isSelected {
-          sender.deselect()
-          try! realm.write {
-              sentence?.favorite = false
-          }
-      } else {
-          sender.select()
-          try! realm.write {
-            sentence?.favorite = true
-      }
+        let realm = try! Realm()
+        let sentence = realm.objects(Sentence.self).filter("id == \(id)").first
+        if sender.isSelected {
+                sender.deselect()
+                try! realm.write {
+                    sentence?.favorite = false
+                }
+        } else {
+            sender.select()
+            try! realm.write {
+                sentence?.favorite = true
+            }
+        }
     }
-  }
 }
 ```
 
@@ -107,50 +107,50 @@ class SentenceListViewController: UIViewController {
   var sentences: [Sentence] = []
     
   override func viewDidLoad() {
-      super.viewDidLoad()
-      // navigation bar title 지우기  
-      self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target :nil, action: nil)
-      // realm에 sentences 추가
-      let realm = try! Realm()
-      self.sentences = Array(realm.objects(Sentence.self))
-  }
+        super.viewDidLoad()
+        // navigation bar title 지우기  
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target :nil, action: nil)
+        // realm에 sentences 추가
+        let realm = try! Realm()
+        self.sentences = Array(realm.objects(Sentence.self))
+    }
 }
 
 extension SentenceListViewController: UITableViewDelegate, UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
-  }
-    
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return self.sentences.count
-  }
-    
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "SentenceCell") as! SentenceCell
-      cell.id = self.sentences[indexPath.row].id
-      cell.englishLabel.text = self.sentences[indexPath.row].english
-      cell.koreanLabel.text = self.sentences[indexPath.row].korean
-      // 즐겨찾기 버튼 활성화  
-      if self.sentences[indexPath.row].favorite == true {
-          cell.favoriteButton.select()
-      } else {
-          cell.favoriteButton.deselect()
-      }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
         
-      return cell
-  }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.sentences.count
+    }
     
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      return
-  }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SentenceCell") as! SentenceCell
+        cell.id = self.sentences[indexPath.row].id
+        cell.englishLabel.text = self.sentences[indexPath.row].english
+        cell.koreanLabel.text = self.sentences[indexPath.row].korean
+        // 즐겨찾기 버튼 활성화  
+        if self.sentences[indexPath.row].favorite == true {
+            cell.favoriteButton.select()
+        } else {
+            cell.favoriteButton.deselect()
+        }
+        
+        return cell
+    }
     
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      return 60.0
-  }
-    
-  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-      return UIView()
-  }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        return
+    }
+        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
+        
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
 }
 ```
 
@@ -159,36 +159,36 @@ extension SentenceListViewController: UITableViewDelegate, UITableViewDataSource
 class FavoritesViewController: UIViewController {
 	@IBOutlet var favoritesSentenceTableView: UITableView!
     
-  var sentences: [Sentence] = []
-    
-  override func viewDidLoad() {
-      super.viewDidLoad()
+    var sentences: [Sentence] = []
         
-      let realm = try! Realm()
-		// favorite 버튼이 누른 것만을 sentences 항목에 추가
-      self.sentences = Array(realm.objects(Sentence.self).filter("favorite = true"))
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+            
+        let realm = try! Realm()
+            // favorite 버튼이 누른 것만을 sentences 항목에 추가
+        self.sentences = Array(realm.objects(Sentence.self).filter("favorite = true"))
+    }
 }
 
 extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
-  }
-    
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return self.sentences.count
-  }
-    
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "SentenceCell") as! SentenceCell
-      cell.englishLabel.text = self.sentences[indexPath.row].english
-      cell.koreanLabel.text = self.sentences[indexPath.row].korean
-      return cell
-  }
-    
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      return 60.0
-  }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.sentences.count
+    }
+        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SentenceCell") as! SentenceCell
+        cell.englishLabel.text = self.sentences[indexPath.row].english
+        cell.koreanLabel.text = self.sentences[indexPath.row].korean
+        return cell
+    }
+        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
 }
 ```
 
