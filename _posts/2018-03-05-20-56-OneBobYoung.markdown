@@ -71,7 +71,7 @@ class SentenceCell: UITableViewCell {
     override func awakeFromNib() {
             super.awakeFromNib()
             // Initialization code
-        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
             super.setSelected(selected, animated: animated)
@@ -101,12 +101,12 @@ class SentenceCell: UITableViewCell {
 ### SentenceListViewController.swift
 ```swift
 class SentenceListViewController: UIViewController {
-    @IBOutlet var sentenceTableView: UITableView!
-    @IBOutlet var testButton: UIButton!
-        
-    var sentences: [Sentence] = []
-        
-    override func viewDidLoad() {
+  @IBOutlet var sentenceTableView: UITableView!
+  @IBOutlet var testButton: UIButton!
+    
+  var sentences: [Sentence] = []
+    
+  override func viewDidLoad() {
         super.viewDidLoad()
         // navigation bar title 지우기  
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target :nil, action: nil)
