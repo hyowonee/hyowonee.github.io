@@ -2,3 +2,169 @@
 title: 원.밥.영 어플 프로젝트 3차 
 author: Choi Hyowon
 ---
+* 테스트 기능을 추가하는 것이 목표로 하였다.
+* 테스트 기능
+	* TisprCardStack 라이브러리를 사용하여 카드 형식의 문제를 보여준다.
+	* 문제는 영어, 한글이 랜덤으로 출제된다.
+	* 답은 4가지 종류로 구성되어 있고 터치하여 선택한다.
+	* CRToast 라이브러리를 사용하여  선택한 답이 맞으면 초록색 Toast창을, 틀리면 빨간색 Toast창을 띄운다.
+* 문제는 sentence.json에 입력해놓은 문제들을 사용하였다.
+	
+## Model 구현
+### Question.swift
+```swift
+// 문제는 두개의 상태를 가진다. 영어 문제와 한글 문제.
+enum TestStatus {
+    case englishQuestion
+    case koreanQuestion
+}
+
+class Question {
+    var text: String = ""
+    var answerList: [String] = ["", "", "", ""]
+    var realAnswerIndex: Int = 0
+    
+    init(status: TestStatus) {
+	  // 랜덤으로 Sentence 모델 문제를 정한다. 
+        guard let questionSentence = Sentence.random() else {
+            return
+        }
+        // 정답 문장의 Index를 정한다.
+        self.realAnswerIndex = Int(arc4random() % 4)
+        
+        switch. status {
+        case .englishQuestion:
+            self.text = questionSentence.english
+                // 0~3번째 까지의 답 문장을 random으로 정한다.
+            for index in 0..<4 {
+                repeat {
+                    let sentence = Sentence.random()!
+                        // 영어 문제이므로 답 문장들은 한글로 설정한다.
+                        // 답 문장이 정답 문장과 겹칠 경우 다시 random하게 sentence를 정한다.
+                    self.answerList[index] = sentence.korean
+                } while self.answerList[index] == questionSentence.korean
+            } 
+            // 정해놓은 정답 index에 정답을 덮어쓴다.
+            self.answerList[self.realAnswerIndex] = questionSentence.korean
+        case .koreanQuestion:
+            self.text = questionSentence.korean
+            for index in 0..<4 {
+                repeat {
+                    let sentence = Sentence.random()!
+                    self.answerList[index] = sentence.english
+                } while self.answerList[index] == questionSentence.english
+            }
+            self.answerList[self.realAnswerIndex] = questionSentence.english
+        }
+    }
+}
+```
+
+## Cell 구현
+### CardCell.swift
+```swift
+class CardCell: TisprCardStackViewCell {
+    @IBOutlet var questionLabel: UILabel!
+    @IBOutlet var answer1Button: UIButton!
+    @IBOutlet var answer2Button: UIButton!
+    @IBOutlet var answer3Button: UIButton!
+    @IBOutlet var answer4Button: UIButton!
+    
+    var question: Question!
+    
+    var block: (() -> Void)?
+        
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // 카드 모양 설정
+        layer.cornerRadius = 12
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowRadius = 5
+        clipsToBounds = false
+    }
+        
+    override internal func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+    }
+        
+    func setQuestion(question: Question, index: Int) {
+        self.question = question
+        questionLabel.text = "문제 \(index).\n\"\(question.text)\"의 뜻은?"
+        answer1Button.setTitle("1. \(question.answerList[0])", for: .normal)
+        answer2Button.setTitle("2. \(question.answerList[1])", for: .normal)
+        answer3Button.setTitle("3. \(question.answerList[2])", for: .normal)
+        answer4Button.setTitle("4. \(question.answerList[3])", for: .normal)
+    }
+    // 답을 선택했을 때 실행되는 함수
+    @IBAction func selectAnswer(sender: UIButton) {
+        if sender.tag == question.realAnswerIndex {
+        CRToastManager.showNotification(options: [
+            kCRToastTextKey: "정답!",
+            kCRToastBackgroundColorKey: UIColor.green,
+            kCRToastTextColorKey: UIColor.black,
+            kCRToastTimeIntervalKey: 0.2,
+            kCRToastNotificationTypeKey: CRToastType.navigationBar.rawValue,
+            kCRToastFontKey: UIFont.boldSystemFont(ofSize: 24)
+        ], completionBlock: nil)
+        } else {
+        CRToastManager.showNotification(options: [
+            kCRToastTextKey: "틀렸습니다..",
+            kCRToastBackgroundColorKey: UIColor.red,
+            kCRToastTimeIntervalKey: 0.2,
+            kCRToastNotificationTypeKey: CRToastType.navigationBar.rawValue,
+            kCRToastFontKey: UIFont.boldSystemFont(ofSize: 24)
+        ], completionBlock: nil)
+        }
+        self.block?()
+    }
+}
+```
+
+## Controller 구현
+### TestViewController.swift
+```swift
+class TestViewController: TisprCardStackViewController, TisprCardStackViewControllerDelegate {
+    var questions: [Question] = []
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setAnimationSpeed(0.85)
+            
+        let size = CGSize(width: view.bounds.width - 40, height: 2 * view.bounds.height / 3)
+        setCardSize(size)
+        
+        cardStackDelegate = self
+        layout.topStackMaximumSize = 4
+        layout.bottomStackMaximumSize = 30
+        layout.bottomStackCardHeight = 45
+        
+        for _ in 0..<100 {
+            if Int(arc4random() % 2) == 0 {
+                questions.append(Question(status: .englishQuestion))
+            } else {
+                questions.append(Question(status: .koreanQuestion))
+            }
+        }
+    }
+        
+    override func numberOfCards() -> Int {
+        return 100
+    }
+    
+    override func card(_ collectionView: UICollectionView, cardForItemAtIndexPath indexPath: IndexPath) -> TisprCardStackViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCell
+        
+        cell.setQuestion(question: questions[indexPath.row], index: indexPath.row + 1)
+        cell.block = {
+            self.moveCardDown()
+        }
+        return cell
+    }
+    
+    @objc func cardDidChangeState(_ cardIndex: Int) {
+    }
+}
+```

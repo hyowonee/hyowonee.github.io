@@ -12,7 +12,7 @@ author: Choi Hyowon
 ![Image](/images/OneBobYoung_TisprCardStack_storyboard.png)
 
 ## Model 구현
-### Sentence
+### Sentence.swift
 ```swift
 import Foundation
 import ObjectMapper
