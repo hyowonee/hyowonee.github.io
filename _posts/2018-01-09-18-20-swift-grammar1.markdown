@@ -52,7 +52,7 @@ for i in items.reserved() { print(i) }
 ```swift
 let items =  [1, 2, 3, 4, 5]
 for(index, value) in items.enumerated() {
-	print (“\(index)  \(value)”)
+    print (“\(index)  \(value)”)
 }
 ```
 리스트는 순서대로 나온다.
@@ -60,7 +60,7 @@ for(index, value) in items.enumerated() {
 ```swift
 let dict = [“a”:1, “b”:2, “c”:3]
 for item in dict {
-	print(“\(item.key) : \(item.value)”)
+    print(“\(item.key) : \(item.value)”)
 }
 ```
 역슬래시를 이용하여  c언어 문법의 %d처럼 string 안에 변수를 특수한 문법을 이용해서 넣을 수 있다.
@@ -69,13 +69,13 @@ for item in dict {
 ## Class
 ```swift
 class Human {
-	var name: String = “” -> init 안써도 에러 안남
-	var age: Int = 0 -> init 안써도 에러 안남
-	var gender: String -> init 필요
-	// init () 은 생성자 역할을 한다.
-	init ()  {
-	//this 대신에 self를 쓴다.
-	self.gender = “male”
+    var name: String = “” -> init 안써도 에러 안남
+    var age: Int = 0 -> init 안써도 에러 안남
+    var gender: String -> init 필요
+    // init () 은 생성자 역할을 한다.
+    init ()  {
+    //this 대신에 self를 쓴다.
+    self.gender = “male”
 }
 ```
 * `var human = Human ()` -> c++에서 처럼 new가 없어도 된다.
@@ -112,7 +112,7 @@ hyowon.changeName(newName: “hyowonee”) // 파라미터에 이런식으로 �
 `hyowon.name?.func()` 이라는 코드가 있을 때, 이는
 ```swift
 if (hyowon.name != nil) {
-	hyowon.name.func()
+    hyowon.name.func()
 }
 ```
  과 같기 때문에 `hyowon.name`에서 name뒤에 뭐가 붙는다면 ?를 붙이고 name자체로만 쓴다면 붙이지 않아도 된다.
@@ -121,13 +121,13 @@ if (hyowon.name != nil) {
 
 ```swift
 if var (let) email = optionalEmail {
-	print(email) // optionalEmail에 값이 존재하면 해당 값을 출력한다.
+    print(email) // optionalEmail에 값이 존재하면 해당 값을 출력한다.
 }  // 값이 존재하지 않으면 if문을 그냥 지나친다.
 ```
 
 ```swift
 if let name = optionalName, (let) email = optionalEmail {
-	// name과 email 값이 다 존재
+    // name과 email 값이 다 존재
 }
 ```
 
@@ -143,9 +143,9 @@ if let age = optionalAge, age >= 20 {
 let array: [String]? = []
 var isEmptyArray = false
 if let array = array, array.isEmpty {
-	isEmptyArray = true
+    isEmptyArray = true
 } else {
-	isEmptyArray = false
+    isEmptyArray = false
 }
 ```
 이 코드를
