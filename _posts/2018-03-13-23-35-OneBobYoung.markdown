@@ -130,7 +130,7 @@ class TestViewController: TisprCardStackViewController, TisprCardStackViewContro
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // 카드 라이브러리 설정
         setAnimationSpeed(0.85)
             
         let size = CGSize(width: view.bounds.width - 40, height: 2 * view.bounds.height / 3)
@@ -140,7 +140,7 @@ class TestViewController: TisprCardStackViewController, TisprCardStackViewContro
         layout.topStackMaximumSize = 4
         layout.bottomStackMaximumSize = 30
         layout.bottomStackCardHeight = 45
-        
+        // 미리 100개정도의 문제 생성
         for _ in 0..<100 {
             if Int(arc4random() % 2) == 0 {
                 questions.append(Question(status: .englishQuestion))
@@ -163,7 +163,7 @@ class TestViewController: TisprCardStackViewController, TisprCardStackViewContro
         }
         return cell
     }
-    
+
     @objc func cardDidChangeState(_ cardIndex: Int) {
     }
 }

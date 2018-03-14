@@ -8,7 +8,7 @@ CocoaPod는 ios개발시 사용하는 의존성 프로토콜이다.
 
 > 의존성 관리 툴이란 개발중인 프로젝트에 의존되는 Library(작은 기능들),  Framework(정해진 패턴만 사용해야함)들을 관리하는 것을 말한다.
 설치 tip : 우선 ruby가 설치되어 있어야 한다.
-		 sudo gem install cocoapods 명령어로 설치한다.
+	     sudo gem install cocoapods 명령어로 설치한다.
 
 # 프로젝트에 라이브러리 적용하는 법
 1.  Xcode 프로젝트가 있는 디렉토리로 이동한다.

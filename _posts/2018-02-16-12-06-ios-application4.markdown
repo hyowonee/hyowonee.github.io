@@ -29,7 +29,7 @@ class ViewController: UIViewController {
 		ImageCache.default.clearMemoryCache()
 		ImageCache.default.clearDiskCache()
 		ImageCache.default.cleanExpiredDiskCache()
-	}
+	} 
 
 	@IBAction func add() {
 		self.imageCount += 1

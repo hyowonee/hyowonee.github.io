@@ -34,7 +34,7 @@ var dict: [String: Int] = [“a”:1, “b”:2, “c”:3]
 ```swift
 switch a {
 case 1:
-	print(“1”) -> break문이 없어도 자동으로 빠져나간다.
+    print(“1”) -> break문이 없어도 자동으로 빠져나간다.
 default:
 	print(“default”)
 }

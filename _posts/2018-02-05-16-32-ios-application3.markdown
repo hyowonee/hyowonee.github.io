@@ -99,22 +99,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		return 1
 	}
     
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return self.posts.count
-  }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.posts.count
+    }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		// 
-      let postCell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
-      postCell.titleLabel.text = self.posts[indexPath.row].title
-      return postCell
-  }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            // 
+        let postCell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
+        postCell.titleLabel.text = self.posts[indexPath.row].title
+        return postCell
+    }
 
-	// Cell을 터치했을 때(선택했을 때) identifier 이름이 "DetailSegue"인 Segue를 실행시킨다. post.id를 보낸다.
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      let post = self.posts[indexPath.row]
-      self.performSegue(withIdentifier: "DetailSegue", sender: post.id)
-  }
+        // Cell을 터치했을 때(선택했을 때) identifier 이름이 "DetailSegue"인 Segue를 실행시킨다. post.id를 보낸다.
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let post = self.posts[indexPath.row]
+        self.performSegue(withIdentifier: "DetailSegue", sender: post.id)
+    }
 }
 ```
 
@@ -126,26 +126,26 @@ import AlamofireObjectMapper
 import NVActivityIndicatorView
 
 class DetailViewController: UIViewController {
-  @IBOutlet var postTextView: UITextView!
-    
-  var postId: Int!
-  var loadingView: NVActivityIndicatorView!
+    @IBOutlet var postTextView: UITextView!
+        
+    var postId: Int!
+    var loadingView: NVActivityIndicatorView!
 
-  override func viewDidLoad() {
-      super.viewDidLoad()
-      // loading 바를 외부 라이브러리를 통해 구현
-      self.loadingView = NVActivityIndicatorView(
-          frame: CGRect(
-              origin: CGPoint(x: view.center.x - 50, y: view.center.y - 50),
-              size: CGSize(width: 100, height: 100)
-          ),
-          type: .ballPulseSync,
-          color: UIColor.black,
-          padding: 0
-      )
-      self.view.addSubview(self.loadingView)
-    
-      loadPost()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // loading 바를 외부 라이브러리를 통해 구현
+        self.loadingView = NVActivityIndicatorView(
+            frame: CGRect(
+                origin: CGPoint(x: view.center.x - 50, y: view.center.y - 50),
+                size: CGSize(width: 100, height: 100)
+            ),
+            type: .ballPulseSync,
+            color: UIColor.black,
+            padding: 0
+        )
+        self.view.addSubview(self.loadingView)
+        
+        loadPost()
   }
 	// Post로 받은 데이터를 뷰에 그려주는 함수
     // 처음 ViewController에서 네트워크 통신 Alamofire.request("https://jsonplaceholder.typicode.com/posts")했을 경우에는 body가 없는데
