@@ -172,4 +172,4 @@ class TestViewController: TisprCardStackViewController, TisprCardStackViewContro
 ## 결과
 ![Image](/images/OneBobYoung_test_demo.png)
 ![Image](/images/OneBobYoung_test_right_demo.png)
-![Image](/images/OneBobYoung_test_wrong_demo.png)
+![Image](/images/OneBobYoung_test_wrong_demo.png) 
