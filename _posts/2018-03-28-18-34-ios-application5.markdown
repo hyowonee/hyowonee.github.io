@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // circle을 뷰의 정 중앙으로 이동하기 위해 위치 조정을 해준다
         circle.frame = CGRect(x: centerX - 50, y: centerY - 50, width: 100, height: 100)
         circle.layer.backgroundColor = UIColor.red.cgColor
         circle.layer.cornerRadius = 50
