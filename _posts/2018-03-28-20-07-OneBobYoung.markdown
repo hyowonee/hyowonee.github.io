@@ -6,12 +6,12 @@ author: Choi Hyowon
 * 어플을 사용하기 용이하도록 디자인적 요소들을 수정하였다.
 
 ## 수정된 디자인
-1.  ![Image](/images/OneBobYoung_new_sentences_demo.png)
-* 줄 간격을 넓히고 즐겨찾기 버튼을 이미지로 대체 하였다.
-* Bold 와 Medium으로  Font style을 적절히 사용하였다.
+![Image](/images/OneBobYoung_new_sentences_demo.png)
+> 줄 간격을 넓히고 즐겨찾기 버튼을 이미지로 대체 하였다.
+> Bold 와 Medium으로  Font style을 적절히 사용하였다.
 
-2.  ![Image](/images/OneBobYoung_empty_favorites_demo.png)
-* 즐겨찾기에 아무것도 들어 있지 않을 경우에 DZNEmptyDataSet 라이브러리를 사용하여 따로 뷰를 구현하였다.
+![Image](/images/OneBobYoung_empty_favorites_demo.png)
+> 즐겨찾기에 아무것도 들어 있지 않을 경우에 DZNEmptyDataSet 라이브러리를 사용하여 따로 뷰를 구현하였다.
 
-3. ![Image](/images/OneBobYoung_new_test_demo.png)
-* Bold로 Font style을 바꾸고, 글씨체를 조절하여 보기 쉽도록 하였다.
+![Image](/images/OneBobYoung_new_test_demo.png)
+> Bold로 Font style을 바꾸고, 글씨체를 조절하여 보기 쉽도록 하였다.
