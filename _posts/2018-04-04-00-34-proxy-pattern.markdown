@@ -1,0 +1,50 @@
+---
+title: Proxy Pattern
+author: Choi Hyowon
+---
+# Proxy Pattern이란?
+* Proxy란 일반적으로 작업을 대신 수행하거나 중개해 주는 역할을 하는 객체를 의미한다.
+* Proxy는 모든 것에 대한 인터페이스가 될 수 있다.
+* Proxy Pattern은 Proxy를 이용하여 원래 객체의 변경 없이 객체의 기능을 특정 방식으로 제어하는 ‘구조’를 제안한다.
+* Proxy Pattern을 이용하여 제어할 수 있는 기능 수행 방식으로는,
+	1. 목표 기능 수행 전/후에 추가 기능 수행
+	2. 목표 기능 수행 과정에서 발생한 예외에 대한 처리/조작
+	3. 특별한 조건에 부합되는 경우 목표 기능 수행 방지
+	4. 목표 기능 수행 시점 변경
+이 있다.
+* swift로 Proxy Pattern을 구현하여 보았다.
+
+```swift
+class BigData {
+	init() {
+		print("정말 오래 걸리는 초기화")
+	}
+
+	func run() {
+		print("실행")
+	}
+}
+
+class BigDataProxy {
+	var bigData: BigData!
+
+	func run() {
+		if bigData == nil {
+			bitData = BigData()
+		}
+		bigData.run()
+	}
+}
+
+/// Case 1
+let bigData = BigData() // 이 시점에 오래 걸리는 초기화가 실행됨
+bigData.run()
+
+/// Case 2
+let bigDataProxy = BigDataProxy()
+// ... 무언가 다른 작업들을 함
+bigDataProxy.run() // 이 시점에 오래 걸리는 초기화가 실행됨
+```
+
+## 결과
+![Image](/images/proxy_pattern_result.png)

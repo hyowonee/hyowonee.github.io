@@ -2,7 +2,6 @@
 title: Method Chaining Pattern
 author: Choi Hyowon
 ---
-# Method Chaining Pattern
 ```swift
 import Foundation
 
