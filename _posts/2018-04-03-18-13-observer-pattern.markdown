@@ -3,8 +3,8 @@ title: Observer Pattern
 author: Choi Hyowon
 ---
 # Observer Pattern이란?
-Subscriber-Publisher 패턴이라고도 한다.
-Swift로 간단한 observer pattern을 구현해 보았다.
+* Subscriber-Publisher 패턴이라고도 한다.
+* Swift로 간단한 observer pattern을 구현해 보았다.
 
 ```swift
 protocol Subscriber { // Subscriber은 Publisher에 의존한다.

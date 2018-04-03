@@ -1,0 +1,4 @@
+---
+title: Proxy Pattern
+author: Choi Hyowon
+---
