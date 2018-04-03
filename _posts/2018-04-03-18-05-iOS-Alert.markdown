@@ -2,8 +2,6 @@
 title: iOS에서 alert창 띄우기
 author: Choi Hyowon
 ---
-
-# iOS에서 alert창 띄우는법
 ```swift
 @IBAction func showAlert() {
 	// UIAlertController를 생성해야 한다. style은 .alert로 해준다.

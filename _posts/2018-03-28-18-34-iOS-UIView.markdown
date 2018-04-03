@@ -2,7 +2,6 @@
 title: UIView로 원과 그림자 구현하기
 author: Choi Hyowon
 ---
-## UIView로 원과 그림자 구현하기
 * UIView를 사용하여 뷰의 가운데에 빨간색 원을 구현하고, 
 그 원에 그림자 효과를 넣어보았다.
 * `UIScreen.main.bounds.size.width`  와  `UIScreen.main.bounds.size.height` 로 스크린 화면의 가로, 세로 크기를 구할 수 있다.

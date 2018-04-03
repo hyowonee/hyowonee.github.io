@@ -2,7 +2,6 @@
 title: iOS 프로젝트에 라이브러리 적용하기
 author: Choi Hyowon
 ---
-
 #  CocoaPods란?
 CocoaPod는 ios개발시 사용하는 의존성 프로토콜이다.
 

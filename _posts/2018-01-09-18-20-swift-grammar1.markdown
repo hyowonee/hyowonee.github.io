@@ -2,8 +2,6 @@
 title: 스위프트 문법 공부 1차
 author: Choi Hyowon
 ---
-
-# 스위프트 문법 1차
 ## 기본 문법
 * import는 c++의 #include와 비슷한 기능을 한다. 라이브러리를 불러온다.
 * UIkit는 화면 View를 작성할 때 쓰는 라이브러리이다.

@@ -2,7 +2,7 @@
 title: Collection View 사용하기
 author: Choi Hyowon
 ---
-## Collection View 사용하기
+
 Add 버튼을 눌르면 이미지가 추가되는 어플을 만들어 보았다.
 이미지는 Kingfisher 라이브러리를 사용하여 image placeholder 페이지에서 100x100 사이즈 이미지를 가져왔다.
 
