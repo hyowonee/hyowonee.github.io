@@ -1,0 +1,20 @@
+---
+title: iOS에서 alert창 띄우기
+author: Choi Hyowon
+---
+
+# iOS에서 alert창 띄우는법
+```swift
+@IBAction func showAlert() {
+	// UIAlertController를 생성해야 한다. style은 .alert로 해준다.
+	let alertController = UIAlertController(title: "제목", message: "내용", preferredStyle: .alert)
+	// style이 .cancle이면 bold체. handler가 nil일 경우에는 아무 일이 일어나지 않고 닫힌다.
+	alertController.addAction(UIAlertAction(title: "취소", style: .cancle, handler: nil)
+	// style이 .default면 평범하다. 해당 버튼을 누르면 handler의 코드가 실행된다.
+	alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: {alertAction in print("확인")}))
+	// style이 .destructive면 빨간색 text color
+	alertController.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: {alertAction in print("삭제")}))
+	// 실제로 화면에 보여주기 위해서는 present 메서드가 필요하다. animated : true/false로 해놓으면 애니메이션 효과가 있고/없다. present가 완료되어 화면이 보여지면 completion의 코드가 실행된다.
+	self.present(alertController, animated: true, completion: nil)
+}
+```

@@ -1,5 +1,5 @@
 ---
-title: ios 어플 실전 공부 4차
+title: Collection View 사용하기
 author: Choi Hyowon
 ---
 ## Collection View 사용하기
