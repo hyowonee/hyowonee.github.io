@@ -1,0 +1,56 @@
+---
+title: iOS Timer 구현하기
+author: Choi Hyowon
+---
+* storyboard를 사용하지 않고 코드로 timer를 구현하였다.
+
+## ViewController.swift
+```swift
+class ViewController: UIViewController {
+	let timerLabel = UILabel()
+	var timer: Timer!
+	var seconds = 1000
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.initialize()
+	}
+
+	override func viewWillAppear(_ animater: Bool) {
+		super.viewWillAppear(animated)
+		
+		self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+			if self.seconds > 0 {
+				self.seconds -=1
+			}
+
+			let minute = self.seconds / 60
+			let second = self.seconds % 60
+			let minuteString = "\(minute < 10 ? "0" : "")\(minute)"
+			let secondString = "\(second < 10 ? "0" : "")\(second)"
+			self.timerLabel.text = "\(minuteString):\(secondString)"
+		}
+		self.timer.fire() // timer 시작
+	}
+	// 다른 뷰가 나타났을 때 타이머를 없애주기 위해
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		self.timer = nil
+	}
+}
+
+func initialize() {
+	timerLabel.text = "00:00"
+	timerLabel.font = UIFont.systemFont(ofSize: 40.0)
+	timerLabel.textColor = .black
+	timerLabel.sizeToFit() // 자동으로 Label의 모양이 글씨 크기에 맞춰진다.
+	timerLabel.center = CGPoint(
+		x: UIScreen.main.bounds.width / 2,
+		y: UIScreen.main.bounds.height / 2
+	)
+	self.view.addSubview(timerLabel)
+}
+```
+
+## 결과
+![Image](/images/timer_result.png)
