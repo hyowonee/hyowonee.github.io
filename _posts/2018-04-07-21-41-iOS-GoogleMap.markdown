@@ -1,0 +1,41 @@
+---
+title: iOS에 GoogleMap 띄우기
+author: Choi Hyowon
+---
+GoogleMap API를 사용하여 iOS에 GoogleMap을 띄워 보았다.
+1. Pod file에 pod 'GoogleMaps'를 추가한다.
+2. 애플리케이션에 `import GoogleMap`을 하고, 발급받은 API 키를 추가한다.
+
+## ViewController.swift
+```swift
+class ViewController: UIViewController {
+    
+    // MARK: Life Cycles
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.loadMap()
+    }
+    
+    // MARK: Initializing
+    
+    func loadMap() {
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: .zero, camera: camera)
+        mapView.isMyLocationEnabled = true
+        // Screen 크기/위치에 mapView위치를 맞춰준다.
+        mapView.frame = UIScreen.main.bounds
+        self.view.addSubview(mapView)
+
+        // 마커 생성
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        marker.title = "Sydney"
+        marker.snippet = "Australia"
+        marker.map = mapView
+    }
+
+}
+```
+## 결과
+![Image](/images/GoogleMap_result.png)
