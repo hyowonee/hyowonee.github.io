@@ -3,15 +3,18 @@ title: iOS에서 ScrollView와 pageControl 사용하기
 author: Choi Hyowon
 ---
 ScrollView와 pageControl을 이용하여 Paging Color을 만들어 보았다.
-* 총 5개의 index를 두었다.
+* 총 5개의 page index를 두었다.
 * scroll하여 page를 넘어갈 때마다 배경의 색깔이 검은색에서 점차 밝은 색으로 바뀌게 하였다.
 
 ## storyboard
+
 ### scrollView
 ![Image](/images/pagingColor_scrollView.png)
 
 ### pageControl
 ![Image](/images/pagingColor_pageControl.png)
+
+### Code
 
 ## ViewController.swift
 ```swift
