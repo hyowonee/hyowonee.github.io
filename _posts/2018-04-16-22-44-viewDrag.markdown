@@ -40,3 +40,7 @@ class ViewController: UIViewController {
     }
 }
 ```
+## 결과
+### drag 하기 전
+![Image](/images/drag_before.png)
+![Image](/images/drag_after.png)
