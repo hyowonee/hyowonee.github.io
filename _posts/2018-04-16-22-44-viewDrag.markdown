@@ -1,4 +1,42 @@
 ---
-title: iOS에서 UIPanGestureRecognizer를 이용하여 UIView Drag 하기 
+title: iOS에서 PanGesture를 이용하여 UIView drag 하기 
 author: Choi Hyowon
 ---
+UIPanGestureRecognizer를 이용하여 UIView를 drag하면 drag한 위치로 UIView가 따라 오게 하였다.
+> UIPanGestureRecognizer에서 Drag 대신 Pan이라는 의미가 사용되었다. 
+> Panning이라는 의미는 ‘카메라를 삼각대 위에 고정시켜 놓은 상태에서 움직이는 피사체를 따라 카메라를 수평으로 회전시키는 일’로 디바이스는 고정되어 있는 상태에서 손가락이 움직이기 때문에 Pan이라는 단어를 사용한다.
+
+## ViewController.swift
+```swift
+class ViewController: UIViewController {
+    
+    var circleView = UIView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        circleView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        circleView.center = CGPoint( // circleView의 가운데가 중심점이 되어 이동한다!!
+            x: UIScreen.main.bounds.width / 2,
+            y: UIScreen.main.bounds.height / 2
+        )
+        circleView.layer.cornerRadius = 25 // 원 모양으로 만듬
+        circleView.backgroundColor = UIColor.red
+        self.view.addSubview(circleView) // 여기서 view는 ViewController가 가지고 있는 view!!
+        
+        // UIPanGestureRecognizer는 target(ViewController)에서 drag가 감지되면 action을 실행한다. 
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.drag)) 
+        // panGesture가 보는 view는 circleView가 된다.
+        circleView.addGestureRecognizer(panGesture)
+    }
+    // #select가 object-c 문법이기 때문에 앞에 annotation(@)objc를 붙인다 
+    @objc func drag(sender: UIPanGestureRecognizer) {
+        // self는 여기서 ViewController이므로 self.view ViewController가 기존에가지고 있는 view이다.
+        let translation = sender.translation(in: self.view) // translation에 움직인 위치를 저장한다.
+
+        // sender의 view는 sender가 바라보고 있는 circleView이다. 드래그로 이동한 만큼 circleView를 이동시킨다.
+        sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
+        sender.setTranslation(.zero, in: self.view) // 0으로 움직인 값을 초기화 시켜준다.
+    }
+}
+```
