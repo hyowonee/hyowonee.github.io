@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         // panGesture가 보는 view는 circleView가 된다.
         circleView.addGestureRecognizer(panGesture)
     }
-    // #select가 object-c 문법이기 때문에 앞에 annotation(@)objc를 붙인다 
+    // #select가 objective-c 문법이기 때문에 앞에 annotation(@)objc를 붙인다 
     @objc func drag(sender: UIPanGestureRecognizer) {
         // self는 여기서 ViewController이므로 self.view ViewController가 기존에가지고 있는 view이다.
         let translation = sender.translation(in: self.view) // translation에 움직인 위치를 저장한다.
