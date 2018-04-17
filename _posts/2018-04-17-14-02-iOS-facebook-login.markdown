@@ -40,11 +40,11 @@ class ViewController: UIViewController {
 ```
 
 ## 결과
-처음 상태
+### 처음 상태
 ![Image](/images/facebookLogin_default.png)
-버튼 누르고 권한 요청
+### 버튼 누르고 권한 요청
 ![Image](/images/facebookLogin_admin_ask.png)
-로그인 유지 선택
+### 로그인 유지 선택
 ![Image](/images/facebookLogin_loginRemain_ask.png)
-로그인 후 로그아웃 버튼
+### 로그인 후 로그아웃 버튼
 ![Image](/images/facebookLogin_afterLogin.png)
