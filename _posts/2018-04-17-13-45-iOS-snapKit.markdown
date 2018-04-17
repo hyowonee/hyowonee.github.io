@@ -1,0 +1,48 @@
+---
+title: iOS에서 SnapKit 이용하기
+author: Choi Hyowon
+---
+storyboard가 아닌 SnapKit 라이브러리를 사용하여 autoLayout을 코드로 직접 코딩할 수 있다.
+
+```swift
+class ViewController: UIViewController {
+
+    var box = UIView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.addSubview(box) // autoLayout을 적용하기 위해 먼저 view에 추가. 추가 안하면 에러남
+        
+        box.backgroundColor = .red
+        
+        box.snp.makeConstraints { make in
+            make.width.height.equalTo(50) // 너비, 높이 모두 50으로 설정
+            make.center.equalTo(self.view) // make의 중심을 ViewController의 기본 view의 중심과 일치시킨다
+        }
+        
+        let box2 = UIView()
+        self.view.addSubview(box2)
+        
+        box2.backgroundColor = .blue
+        box2.snp.makeConstraints { make in
+            make.leading.equalTo(10) // 왼쪽. left로도 사용 가능
+            make.trailing.equalTo(-10) // 오른쪽. right로도 사용 가능
+            make.height.equalTo(50)
+            make.top.equalTo(box.snp.bottom).offset(5) // box2의 위쪽에 box가 5의 간격으로 위치
+        }
+        
+        let greenBox = UIView()
+        self.view.addSubview(greenBox)
+        
+        greenBox.backgroundColor = .green
+        greenBox.snp.makeConstraints { make in
+            make.leading.equalTo(10)
+            make.width.height.equalTo(50)
+            make.bottom.equalTo(box.snp.top).offset(5) // greenBox의 아래쪽에 box가 5의 간격으로 위치
+        }
+    }
+}
+```
+## 결과
+![Image](/images/SnapKit_result.png)
