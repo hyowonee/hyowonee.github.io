@@ -32,9 +32,15 @@ class ViewController: UIViewController {
                 return
             }
             
-            print("\(profile.firstName) \(profile.lastName)")
+            print("\(profile.firstName) \(profile.lastName)") // 로그로 로그인한 사용자의 데이터 가져오기
         }
     }
 
 }
 ```
+
+## 결과
+![Image](/images/facebookLogin_default.png)
+![Image](/images/facebookLogin_admin_ask.png)
+![Image](/images/facebookLogin_loginRemain_aks.png)
+![Image](/images/facebookLogin_afterLogin.png)
