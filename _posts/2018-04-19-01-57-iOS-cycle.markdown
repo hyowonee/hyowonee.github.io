@@ -30,18 +30,21 @@ author: Choi Hyowon
 * 특별한 경우가 아니라면 딱 한 번만 실행되기 때문에 주로 초기화 할 때 사용한다.
 
 ### viewWillAppear
-* viewWillAppear는 뷰가 이제 나타날 거라는 신호를 컨트롤러에게 알리는 역할을 한다.
+* viewWillAppear는 뷰가 이제 나타날 거라는 신호를 ViewController에게 알리는 역할을 한다.
 * 뷰가 화면에 나타나기 직전에 실행되기 때문에 네트워크 API를 호출하는 등 화면에 보이기 전에 처리해야하는 작업을 이곳에서 진행한다.
 
 ### viewDidAppear
+* viewDidAppear는 뷰가 이제 나타났다는 것을 ViewController에게 알리는 역할을 한다.
 * 뷰가 화면에 나타난 이후에 실행된다. 
 * 데이터를 받아서 화면에 뿌려주거나 애니메이션 등의 작업을 하는 로직을 위치시킬 수 있다. ViewWillAppear에서 로직을 넣었다가 뷰에 반영이 안되는 경우가 있기 때문이다.
 
 ### viewWillDisappear
-뷰가 화면에 사라지기 직전에 실행된다.
+* 뷰가 삭제될 것이라는 것을 ViewController에게 알린다.
+* 뷰가 화면에 사라지기 직전에 실행된다.
 
 ### viewDidDisappear
-뷰가 화면에 사라진 후 실행된다.
+* ViewController가 뷰가 삭제되었음을 알린다.
+* 뷰가 화면에 사라진 후 실행된다.
 
 ### 실행 순서
 viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear
