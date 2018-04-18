@@ -11,7 +11,7 @@ Reference Counting은 메모리에 할당된 객체에 참조중인 개수를 �
 * 말 그대로 개발자가 수동으로 Reference Counting을 하는 것 이다.
 * Objective-c에서만 지원하며 Swift에서는 지원하지 않는다.
 * 객체를 참조하고 싶을 때 [retain], 참조를 풀고 싶을 때 [release]
-```obj-c
+```objc
 Person *person = [[Person alloc] init]; // RC : 1
 [person retain]; // RC : 2
 [person release]; // RC : 1
