@@ -1,0 +1,48 @@
+---
+title: iOS App Life Cycle과 View Life Cycle
+author: Choi Hyowon
+---
+## App Life Cycle
+* iOS에서 앱은 간단히 3가지 실행 모드와 5가지의 상태로 구분이 가능하다.
+* 항상 하나의 상태를 가지고 있다.
+
+### Not Running
+* 실행되지 않는 모드와 상태를 모두 의미
+
+### Foreground
+* Active : 활성화
+* Inactive : 비활성화
+
+### Background
+* Running : 백그라운드에서 실행중인 상태
+* Suspend: 백그라운드에서 정지되어있는 상태
+
+> *몇가지 예시*
+> Not running -> Active : 앱을 터치해서 실행이 되는 상태
+> Active -> Inactive -> Running : 앱을 활성화 상태에서 비활성화 상태로 만든 후, 백그라운드에서는 계속 실행중인 상태
+> Running -> Active : 백그라운드에서 실행중인 앱이 다시 Foreground에서 활성화되는 상태
+
+## View Life Cycle
+* 앱은 하나 이상의 뷰로 구성되어 있으며 각각의 뷰들은 라이프 사이클을 가지고 있다.
+
+###  viewDidLoad
+* ViewController 클래스가 생성될 때 실행된다. 
+* 특별한 경우가 아니라면 딱 한 번만 실행되기 때문에 주로 초기화 할 때 사용한다.
+
+### viewWillAppear
+* viewWillAppear는 뷰가 이제 나타날 거라는 신호를 컨트롤러에게 알리는 역할을 한다.
+* 뷰가 화면에 나타나기 직전에 실행되기 때문에 네트워크 API를 호출하는 등 화면에 보이기 전에 처리해야하는 작업을 이곳에서 진행한다.
+
+### viewDidAppear
+* 뷰가 화면에 나타난 이후에 실행된다. 
+* 데이터를 받아서 화면에 뿌려주거나 애니메이션 등의 작업을 하는 로직을 위치시킬 수 있다. ViewWillAppear에서 로직을 넣었다가 뷰에 반영이 안되는 경우가 있기 때문이다.
+
+### viewWillDisappear
+뷰가 화면에 사라지기 직전에 실행된다.
+
+### viewDidDisappear
+뷰가 화면에 사라진 후 실행된다.
+
+### 실행 순서
+viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear
+
