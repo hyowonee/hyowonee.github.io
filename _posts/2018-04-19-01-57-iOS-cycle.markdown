@@ -17,7 +17,6 @@ author: Choi Hyowon
 * Running : 백그라운드에서 실행중인 상태
 * Suspend: 백그라운드에서 정지되어있는 상태
 
-> *몇가지 예시*
 > Not running -> Active : 앱을 터치해서 실행이 되는 상태
 > Active -> Inactive -> Running : 앱을 활성화 상태에서 비활성화 상태로 만든 후, 백그라운드에서는 계속 실행중인 상태
 > Running -> Active : 백그라운드에서 실행중인 앱이 다시 Foreground에서 활성화되는 상태
