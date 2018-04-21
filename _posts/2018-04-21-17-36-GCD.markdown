@@ -1,0 +1,81 @@
+---
+title: GCD(Grand Central Dispatch)
+author: Choi Hyowon
+---
+* Swift에서 Thread 관련 작업은 Grand Central Dispatch API를 통해 처리한다.
+> 어느 작업을 어느 Thread가 할 것인지, Multi-thread로 할 것인지, Sync로 할지, Async로 할지 등을 처리
+* GCD는 Dispatch(출격, 배포)한다는 용어에 맞게, Closure로 표현된 특정 작업을 특정 Queue에 올려태우고, 이 특정 Queue를 특정 Thread에 출격시켜 실행하는 작업을 수행한다.
+> GCD는 쉽게 생각하면 Swift에서 Multi-threading 작업을 수행하는 API이다.
+* 주로 시간이 오래 걸리는 작업을 사용하면서 사용자의 UI를 막지 않고자 할 때 사용한다.
+* GCD를 활용해서 Multi-threading 작업을 할 때는 상황에 맞게 적절한 Queue와 QoS를 골라야 한다.
+
+## Dispatch Queue
+* GCD는 Thread safe한 Dispatch Queue를 제공하여 Multi-threading 작업을 수행하도록 해준다.
+* GCD가 제공하는 Queue는 다음 3가지로 나뉜다.
+
+### main(serial) queue
+* main에서 제공하는 serial queue이다. 
+* 모든 작업은 main queue에서 수행해야 한다.
+
+### golbal(concurrent) queue
+* 전체 시스템에 공유되는 concurrent queue이다.
+* 작업의 우선순위를 사전에 정의한 4가지 QoS를 활용하게 된다.
+
+### custom queue
+* 개발자가 임의로 정하는 queue이다.
+* serial, concurrent 모두 정의할 수 있는데, 사실상 임의의 serial queue를 만들고 싶을 때 사용한다.
+* 같은 serial queue인 main queue에서 처리하기에는 부적합한, 뒷단에서 serial로 돌아갈 필요가 있는 작업을 수행할 때 만든다.
+* custom queue는 global queue에서 수행된다.
+
+## Quality of Service (QoS)
+* 어떤 작업을 Multi-threading으로 concurrent하게 처리하고자 할 때 glbal queue를 쓴다. 이 때 해당 작업의 우선순위를 지정할 때에는 미리 중요도가 정의돤 QoS를 사용한다.
+* QoS는 중요도와 우선순위에 따라 User-interactive, User-initiated, Utility, Background 4가지로 구분된다.
+
+### User-interactive
+* 중요도가 높고 즉각적인 반응이 요구되는 작업을 수행할 때 가장 자원을 많이 쓰도록 하는 QoS이다.
+* 유저가 누르면 즉각적으로 반응하는 작업이 들어간다. 
+> UI 업데이트, 이벤트 핸들링 등 가볍고 신속한 처리가 필요한 작업 수행용이다.
+* global queue 항목임에도 main thread에서 실행되는 QoS이다.
+> main queue와 main thread는 다르다.
+
+### User-initiated
+* User-interactive 정도는 아니더라도 유저가 빠른 결과를 기대할 때 사용하는 QoS이다.
+* 유저가 실행시킨 작업으로 Async하게 처리해야 할 일들을 처리한다.
+* 유저가 UI상으로 블록을 당하지 않게 하면서도 빠른 결과를 기대할 때 사용한다.
+
+### Utility
+* 시간이 다소 오래 걸리는 작업을 처리한다.
+* 유저에게 처리가 진행되는 모습도 보인다.
+* 계산, I/O, 네트워킹, 데이터 피트 등의 작업에 주로 사용한다.
+
+### Background
+* 유저가 인지하지도 못하는 뒷단에서 이루어지는 작업들이다.
+* 유저 인터렉션이 필요한 것도 아니고 급히 필요하지도 않은 작업들이 수행되게 된다.
+
+### DispatchQueue와 QoS를 사용한 예시
+* 이미지를 불러오는 작업은 Global Queue에 userInitiated QoS를 활용하여 async로 처리
+>  async는 기다리지 말고 바로 실행하라는 것이다.
+* main queue가 아닌 global queue에 이미지 불러오기 작업을 수행하게 하여, 유저로부터 이미지를 불러오도록 지시를 받아 이미지를 가져오는 중에 유저가 화면 이동이나 클릭 등을 할 수 있게 해준다.
+* 이미지를 모두 가져왔다면 다시 Main Queue로 돌아와 이미지를 유저에게 보여주는 작업을 수행한다. 
+```swift
+// Move to a background thread to do some long running work
+DispatchQueue.global(qos: .userInitiated).async {
+    let image = self.loadOrGenerateAnImage()
+    // Bounce back to the main thread to update the UI
+    DispatchQueue.main.async {
+        self.imageView.image = image
+    }
+}
+```
+> Dispatch.global.async나 Dispatch.main.async 메서드는 인자로 클로저를 받는 메서드로서, 메서드를 콜한 자에게 메서드 작업 관련 클로저를 작성할 권한을 넘겨주었다.
+> 이렇듯 콜백 클로저를 통해서 Multi-threading이 구현되고 있다.
+
+### asyncAfter로 시간차 두기
+```swift
+DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // in half a second...
+    print("Are we there yet?")
+}
+```
+> DispatchQueue.main.asyncAfter를 통해 특정 코드의 실행을 미룰 수 있다.
+
+참고 : https://m.blog.naver.com/PostView.nhn?blogId=jdub7138&logNo=220949191761&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
