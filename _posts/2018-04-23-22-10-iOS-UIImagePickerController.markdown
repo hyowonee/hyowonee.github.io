@@ -66,6 +66,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 
 ## 결과
 ![Image](/images/UIImagePickerController_first.png)
+처음의 이미지 뷰 화면
 ![Image](/images/UIImagePickerController_second.png)
+이미지 선택 버튼을 누르면 앨범으로 넘어간다
 ![Image](/images/UIImagePickerController_third.png)
+앨범에서 원하는 사진을 선택하면
 ![Image](/images/UIImagePickerController_last.png)
+선택한 사진이 이미지 뷰에 들어간다.
