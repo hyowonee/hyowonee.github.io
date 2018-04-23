@@ -85,14 +85,16 @@ class ViewController: UIViewController {
 * UITextField에 값을 입력하고 나서도 키보드 입력창이 내려가지 않는 문제가 발생하였다.
 * `view.endEditing(true)`라는 코드로 해결하였다.
 * 코드와 함께 다음의 storyboard 설정이 필요하다.
+
 ![Image](/images/dismissKeyboard_UIControl.png)
-* 상위 View의 identity inspector의 Custom Class의 이름을 UIControl로 설정해준다.
+상위 View의 identity inspector의 Custom Class의 이름을 UIControl로 설정해준다.
 ![Image](/images/dismissKeyboard_sent_events.png)
-* 상위 View의 connections inspector의 Sent Events에서 dismissKeyboard()함수를 연결해준다.
+상위 View의 connections inspector의 Sent Events에서 dismissKeyboard()함수를 연결해준다.
+
 ## 결과
 ![Image](/images/LocalNotification_require_author.png)
-* 실시간 시간을 보여주는 첫 화면
+실시간 시간을 보여주는 첫 화면
 ![Image](/images/LocalNotification_input.png)
-* 시간 입력
+시간 입력
 ![Image](/images/LocalNotification_output.png)
-* 입력한 시간에 알람이 뜸
+입력한 시간에 알람이 뜸
