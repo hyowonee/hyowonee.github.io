@@ -5,6 +5,7 @@ author: Choi Hyowon
 * UITextField에 사용자가 정해진 형식대로 시간을 입력하면, 해당 시간에 Notification이 뜨도록 하였다.
 * UITextField 위에는 현재 시간을 실시간으로 보여주는 Label를 두었다. Timer()와 DateFormatter()를 사용하였다.
 * 현재 시간을 가져오는 것은 Date()와 Calender를 이용하였다.
+* `import UserNotifications`를 해준다.
 
 ## ViewController.swift
 ```swift
