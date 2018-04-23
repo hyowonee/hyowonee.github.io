@@ -59,10 +59,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
 }
 ```
->  UIImagePickerControllerDelegate를 선언 할 때 UINavigationControllerDelegate를 선언해야하는 이유
-> UIImagePickerControllerDelegate의 delegate 속성은 UIImagePickerControllerDelegate와 UINavigationControllerDelegate 프로토콜을 모두 구현하는 객체로 정의되어있다. 
-> 위 코드의 self.picker.delegate =  self에서 self를 picker.delegate에 할당하려면 self는 UINavigationControllerDelegate 타입이어야 한다. 
-> picker의 delegate를 UINavigationControllerDelegate에 위임해준 것인데, 대리자는 사용자가 이미지나 동영상을 선택하거나 picker화면을 종료할 때 알림을 받는다. 
+### UIImagePickerControllerDelegate를 선언 할 때 UINavigationControllerDelegate를 선언해야하는 이유
+* UIImagePickerControllerDelegate의 delegate 속성은 UIImagePickerControllerDelegate와 UINavigationControllerDelegate 프로토콜을 모두 구현하는 객체로 정의되어있다. 
+* 위 코드의 self.picker.delegate =  self에서 self를 picker.delegate에 할당하려면 self는 UINavigationControllerDelegate 타입이어야 한다. 
+* picker의 delegate를 UINavigationControllerDelegate에 위임해준 것인데, 대리자는 사용자가 이미지나 동영상을 선택하거나 picker화면을 종료할 때 알림을 받는다. 
 
 ## 결과
 ![Image](/images/UIImageViewController_first.png)
