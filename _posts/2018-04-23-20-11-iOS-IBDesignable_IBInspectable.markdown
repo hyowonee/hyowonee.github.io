@@ -62,6 +62,10 @@ class CounterView: UIView {
     }   
 }
 ```
+## storyboard
+![Image](/images/CounterView_class.png)
+storyboard에는 UIView 하나를 만들고 class이름을 custom으로 만든 CustomView로 설정한다.
+
 ## 결과
 ![Image](/images/IBDesignable_IBInspectable.png)
 IBDesignable로 인해 storyboard에 customView가 나타나고, ,IBInspectable로 인해 Count의 값의 조정을 storyboard로 볼 수 있다.
