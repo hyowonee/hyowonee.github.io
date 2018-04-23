@@ -65,7 +65,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 * picker의 delegate를 UINavigationControllerDelegate에 위임해준 것인데, 대리자는 사용자가 이미지나 동영상을 선택하거나 picker화면을 종료할 때 알림을 받는다. 
 
 ## 결과
-![Image](/images/UIImageViewController_first.png)
-![Image](/images/UIImageViewController_second.png)
-![Image](/images/UIImageViewController_third.png)
-![Image](/images/UIImageViewController_last.png)
+![Image](/images/UIImagePickerController_first.png)
+![Image](/images/UIImagePickerController_second.png)
+![Image](/images/UIImagePickerController_third.png)
+![Image](/images/UIImagePickerController_last.png)
