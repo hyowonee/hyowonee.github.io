@@ -1,5 +1,5 @@
 ---
-title: iOS에서 Login Page 만들기(storyboard)
+title: iOS에서 Login Page 만들기(with storyboard)
 author: Choi Hyowon
 ---
 * 아이디와 비밀번호를 입력하여 로그인을 하는 페이지를 만들어 보았다.
@@ -103,9 +103,13 @@ class ViewController: UIViewController {
 ## 결과
 ![Image](/images/LoginPage_login_error_id.png)
 ![Image](/images/LoginPage_login_error_id_alert.png)
+id(email) 형식이 틀린 경우
 ![Image](/images/LoginPage_login_error_password.png)
 ![Image](/images/LoginPage_login_error_password_alert.png)
+password 형식이 틀린 경우
 ![Image](/images/LoginPage_login_join.png)
 ![Image](/images/LoginPage_login_join_alert.png)
+id(email)과 password 형식이 모두 올바르나, 등록된 id(email)나 password가 아닌 경우
 ![Image](/images/LoginPage_login_success.png)
 ![Image](/images/LoginPage_login_success_alert.png)
+id(email)과 password의 형식이 모두 올바르고 등록된 id(email), password로 로그인한 경우
