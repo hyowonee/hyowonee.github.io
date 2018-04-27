@@ -13,6 +13,7 @@ author: Choi Hyowon
 * Subscript는 subscript 키워드를 사용하여 정의한다.
 * 인스턴스 메서드와 비슷하게 매개변수의 개수, 타입, 반환 타입 등을 지정하며, 읽고 쓰기가 가능하도록 구현하거나 읽기 전용으로만 구현할 수 있다.
 *  Subscript를 정의하는 코드는 각 타입의 구현부 또는 타입의 extension 구현부에 위치해야 한다.
+
 ```swift
 subscript(index: Int) -> Int {
   get {
@@ -25,6 +26,7 @@ subscript(index: Int) -> Int {
 }
 ```
 > 위 코드의 Subscript 설정자의 newValue의 타입은 Subscript의 반환 타입과 동일하다.
+
 ```swift
 // 읽기 전용 Subscript
 subscript(index: Int) -> Int {
@@ -42,6 +44,7 @@ subscript(index: Int) -> Int {
 ## 여러 개의 Subscript
 * 하나의 타입이 여러 개의 Subscript를 가질 수도 있다.
 * 다양한 매개변수 타입을 사용하여 Subscript를 구현하면 여러 용도로 Subscript를 사용할 수 있다.
+
 ```swift
 class Hello {
     var _name: String
