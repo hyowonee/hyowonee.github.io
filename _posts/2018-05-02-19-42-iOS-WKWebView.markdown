@@ -10,12 +10,17 @@ author: Choi Hyowon
 > WKWebView는 약 8500 개의 개체를 렌더링하지만 UIWebView는 약 3500 개의 개체를 렌더링하며 WKWebView의 성능은 UIWebView와 비교하여 두 배이다.
 > WKWebView는 25% CPU를 사용하여 같은 수의 입자(particles)를 렌더링하지만 UIWebView는 동일한 작업에 대해 90% CPU를 사용한다.
 
-* WKWebView에는 IndexedDB 및 ObjectStore ArrayBuffer와 같은 UIWebView보다 몇 가지 추가 지원 기능이 있습니다.
+* WKWebView에는 IndexedDB 및 ObjectStore ArrayBuffer와 같은 UIWebView보다 몇 가지 추가 지원 기능이 있다.
 > IndexedDB는 인덱스를 사용하여 데이터를 관리하는 데 사용되는 데이터베이스이다. 인덱싱은 인덱스 및 저장된 데이터의 특정 도움말을 사용하여 데이터를 쉽게 식별하는 데 도움이 된다. SQL 데이터베이스 및 객체 지향 데이터베이스와 같다. 객체는 키를 사용하여 저장하고 검색할 수 있다.
 
 * UIWebView는 한 번 로드되고, 데이터는 쿠키에 저장되므로 다음 번 로딩 시간은 이전 시간에 비해 적어지지만 WKWebView에서는 쿠키가 저장되지 않으므로 항상 로딩 시간이 동일하다.
-* WKWebView는 프로세스를 벗어나 실행된다. 즉, 메모리가 앱과 별도로 스레드됨을 의미한다. 할당량을 초과하면 앱을 중단하지 않고 충돌한다.(이로 인해 앱이 알림을 받고 페이지를 다시 로드하려고 시도 한다)
-* 
+* WKWebView는 프로세스를 벗어나 실행된다. 즉, 메모리가 앱과 별도로 스레드됨을 의미한다. 할당량을 초과하면 앱을 중단하지 않고 충돌한다.(이로 인해 앱이 알림을 받고 페이지를 다시 로드하려고 시도 한다) 반면에, UIWebView는 프로세스 내에서 실행된다. 즉, 사용하는 메모리가 앱 사용공간(footprint)의 일부로 간주되며, iOS에서 할당하려는 값을 초과하면 앱 자체가 운영 체제에 의해 손상된다. 이러한 상황이 발생하기 전에 iOS로부터 알림을받는 경우도 있지만, 충돌을 막기 위해 신속하게 반환되지 않거나 전혀 반환되지 않는 경우가 있다.
+* WKWebView는 더 빠른 자바 스크립트 엔진인 Nitro를 사용한다.
+* WKWebView는 JavaScript를 비동기 적으로 처리한다.
+> JavaScript와 네이티브 코드 간의 통신은 WKWebView에서 비동기 적으로 처리된다. 즉, 일반적으로 더 빠르게 실행된다.
+
+* UIWebView와는 달리 WKWebView는 서버 인증 문제를 지원한다. 실질적으로 이것은 WKWebView를 사용할 때 암호로 보호 된 웹 사이트의 사이트 자격 증명을 입력 할 수 있음을 의미한다.
+* WKWebView를 사용하면 '계속'/ '취소'팝업을 통해 보안 인증서의 오류 (예 : 자체 서명 된 인증서 또는 만료 된 인증서 사용)를 건너 뛸 수 있다.
 
 ## ViewController.swift
 ```swift
