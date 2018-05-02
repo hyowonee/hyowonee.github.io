@@ -2,6 +2,10 @@
 title: iOS에서 WKWebView 사용하기
 author: Choi Hyowon
 ---
+* WKWebView를 사용하여 브라우저를 보여준다. 기본으로 www.naver.com 페이지를 보여주도록 설정하였다.
+* UISearchBar를 사용하여 직접 URL을 입력하여 해당 웹사이트로 이동할 수 있게 하였다.
+* 뒤로 가기, 앞으로 가기 버튼을 만들어서 웹 페이지를 이동할 수 있게 하였다.
+
 ## WKWebView와 UIWebView의 차이점
 * UIWebView와 WKWebView 둘 다 앱 안에서 WebView를 보여주는 역할을 하지만 현재 UIWebView는 deprecate되었다.
 * UIWebView는 UIKit의 일부이며, WKWebView는 WebKit이라는 프레임워크를 import해야 한다.
@@ -14,7 +18,7 @@ author: Choi Hyowon
 > IndexedDB는 인덱스를 사용하여 데이터를 관리하는 데 사용되는 데이터베이스이다. 인덱싱은 인덱스 및 저장된 데이터의 특정 도움말을 사용하여 데이터를 쉽게 식별하는 데 도움이 된다. SQL 데이터베이스 및 객체 지향 데이터베이스와 같다. 객체는 키를 사용하여 저장하고 검색할 수 있다.
 
 * UIWebView는 한 번 로드되고, 데이터는 쿠키에 저장되므로 다음 번 로딩 시간은 이전 시간에 비해 적어지지만 WKWebView에서는 쿠키가 저장되지 않으므로 항상 로딩 시간이 동일하다.
-* WKWebView는 프로세스를 벗어나 실행된다. 즉, 메모리가 앱과 별도로 스레드됨을 의미한다. 할당량을 초과하면 앱을 중단하지 않고 충돌한다.(이로 인해 앱이 알림을 받고 페이지를 다시 로드하려고 시도 한다) 반면에, UIWebView는 프로세스 내에서 실행된다. 즉, 사용하는 메모리가 앱 사용공간(footprint)의 일부로 간주되며, iOS에서 할당하려는 값을 초과하면 앱 자체가 운영 체제에 의해 손상된다. 이러한 상황이 발생하기 전에 iOS로부터 알림을받는 경우도 있지만, 충돌을 막기 위해 신속하게 반환되지 않거나 전혀 반환되지 않는 경우가 있다.
+* WKWebView는 프로세스를 벗어나 실행된다. 즉, 메모리가 앱과 별도로 스레드됨을 의미한다. 할당량을 초과하면 앱을 중단하지 않고 충돌한다. (이로 인해 앱이 알림을 받고 페이지를 다시 로드하려고 시도 한다) 반면에, UIWebView는 프로세스 내에서 실행된다. 즉, 사용하는 메모리가 앱 사용공간(footprint)의 일부로 간주되며, iOS에서 할당하려는 값을 초과하면 앱 자체가 운영 체제에 의해 손상된다. 이러한 상황이 발생하기 전에 iOS로부터 알림을받는 경우도 있지만, 충돌을 막기 위해 신속하게 반환되지 않거나 전혀 반환되지 않는 경우가 있다.
 * WKWebView는 더 빠른 자바 스크립트 엔진인 Nitro를 사용한다.
 * WKWebView는 JavaScript를 비동기 적으로 처리한다.
 > JavaScript와 네이티브 코드 간의 통신은 WKWebView에서 비동기 적으로 처리된다. 즉, 일반적으로 더 빠르게 실행된다.
@@ -38,6 +42,16 @@ author: Choi Hyowon
 * 앱 종료시 HTML5 로컬 스토리지가 지워짐
 > 앱이 종료되고 다시 실행되면 HTML5 로컬 저장소가 지워진다.
 
+## storyboard 구현
+![Image](/images/WKView_WebView_storyboard.png)
+WebView 연결
+
+![Image](/images/WKView_UISearchBar_storyboard.png)
+UISearchBar 연결
+
+![Image](/images/WKView_backButton_storyboard.png)
+IBAction 연결 (forward 버튼도 같은 식으로 연결)
+
 ## ViewController.swift
 ```swift
 class ViewController: UIViewController {
@@ -47,34 +61,42 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 첫 페이지는 네이버로 설정
         self.request(url: "http://www.naver.com")
     }
     
+    // 이전 페이지로 이동
     @IBAction func back() {
         if self.webView.canGoBack {
             self.webView.goBack()
         }
     }
     
+    // 다음 페이지로 이동
     @IBAction func forward() {
         if self.webView.canGoForward {
             self.webView.goForward()
         }
     }
 
+    // 현재 webView에서 받아온 URL 페이지를 로드한다.
     func request(url: String) {
         self.webView.load(URLRequest(url: URL(string: url)!))
         self.webView.navigationDelegate = self
     }
 }
 
+// searchBar에서 검색하면 searchBar에 입력된 주소를 요청한다.
 extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.request(url: searchBar.text!)
+
+        //다른곳을 터치하면 키보드가 내려갈 수 있도록 한다.
         self.view.endEditing(true)
     }
 }
 
+// 현재 웹페이지의 URL을 searchBar에 띄워준다.
 extension ViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.searchBar.text = webView.url?.absoluteString
@@ -82,3 +104,11 @@ extension ViewController: WKNavigationDelegate {
 }
 
 ```
+## 결과
+![Image](/images/WKWebView_default_page.png)
+기본 페이지
+
+![Image](/images/WKWebView_page_navigation.png)
+searchBar에 URL을 입력하여 페이지 이동
+
+참고 : http://docs.kioskproapp.com/article/840-wkwebview-supported-features-known-issues
