@@ -22,6 +22,22 @@ author: Choi Hyowon
 * UIWebView와는 달리 WKWebView는 서버 인증 문제를 지원한다. 실질적으로 이것은 WKWebView를 사용할 때 암호로 보호 된 웹 사이트의 사이트 자격 증명을 입력 할 수 있음을 의미한다.
 * WKWebView를 사용하면 '계속'/ '취소'팝업을 통해 보안 인증서의 오류 (예 : 자체 서명 된 인증서 또는 만료 된 인증서 사용)를 건너 뛸 수 있다.
 
+## WKWebView의 한계점
+* iOS 9 이상 필요
+> WKWebView integration은 iOS 9 이상을 실행하는 디바이스에서만 사용할 수 있다. WKWebView는 iOS 8에서 처음 소개되었지만 로컬에 저장된 파일에 액세스 할 수없는 등 엄청난 한계가 있었다.
+
+* 로컬로 저장된 파일에 대한 AJAX 요청을 지원하지 않는다.
+> WKWebView는 브라우저 엔진의 크로스 원본 리소스 공유 규칙을 위반하므로 file : // URI에 대한 XHR 요청을 허용하지 않는다. 이 유형의 요청을 사용하는 프로젝트는 서버에서 원격으로 호스팅되거나 기존 UIWebView 탐색 엔진을 사용해야 한다.
+
+* '쿠키 허용'설정을 지원하지 않는다.
+> WKWebView 탐색 엔진을 사용할 때 '쿠키 허용'설정이 적용되지 않는다.
+
+* '고급 캐시 설정'(Advanced Cache Settings)을 지원하지 않는다.
+> '캐시 원본(Cache Source)'및 '오직 서버 Redirection 이벤트에 대한 것만 브라우저에 알림'은 WKWebView 탐색 엔진을 사용할 때 적용되지 않는다.
+
+* 앱 종료시 HTML5 로컬 스토리지가 지워짐
+> 앱이 종료되고 다시 실행되면 HTML5 로컬 저장소가 지워진다.
+
 ## ViewController.swift
 ```swift
 class ViewController: UIViewController {
