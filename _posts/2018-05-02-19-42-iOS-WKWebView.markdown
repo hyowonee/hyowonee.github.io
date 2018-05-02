@@ -10,8 +10,10 @@ author: Choi Hyowon
 > WKWebView는 약 8500 개의 개체를 렌더링하지만 UIWebView는 약 3500 개의 개체를 렌더링하며 WKWebView의 성능은 UIWebView와 비교하여 두 배이다.
 
 > WKWebView는 25% CPU를 사용하여 같은 수의 입자(particles)를 렌더링하지만 UIWebView는 동일한 작업에 대해 90% CPU를 사용한다.
+
 * WKWebView에는 IndexedDB 및 ObjectStore ArrayBuffer와 같은 UIWebView보다 몇 가지 추가 지원 기능이 있습니다.
 > IndexedDB는 인덱스를 사용하여 데이터를 관리하는 데 사용되는 데이터베이스이다. 인덱싱은 인덱스 및 저장된 데이터의 특정 도움말을 사용하여 데이터를 쉽게 식별하는 데 도움이 된다. SQL 데이터베이스 및 객체 지향 데이터베이스와 같다. 객체는 키를 사용하여 저장하고 검색할 수 있다.
+
 * 
 
 ## ViewController.swift
