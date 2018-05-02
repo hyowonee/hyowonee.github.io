@@ -1,0 +1,60 @@
+---
+title: iOS애서 WKWebView 사용하기
+author: Choi Hyowon
+---
+## WKWebView와 UIWebView의 차이점
+* UIWebView와 WKWebView 둘 다 앱 안에서 WebView를 보여주는 역할을 하지만 현재 UIWebView는 deprecate되었다.
+* UIWebView는 UIKit의 일부이며, WKWebView는 WebKit이라는 프레임워크를 import해야 한다.
+* 페이지 크기 조정 기능은 UIWebView에서 사용할 수 있지만, WKWebView에서는 사용할 수 없다.
+* WKWebView는 UIWebView와 비교하여 더 높고 효율적인 성능을 제공한다.
+> WKWebView는 약 8500 개의 개체를 렌더링하지만 UIWebView는 약 3500 개의 개체를 렌더링하며 WKWebView의 성능은 UIWebView와 비교하여 두 배이다.
+
+> WKWebView는 25% CPU를 사용하여 같은 수의 입자(particles)를 렌더링하지만 UIWebView는 동일한 작업에 대해 90% CPU를 사용한다.
+* WKWebView에는 IndexedDB 및 ObjectStore ArrayBuffer와 같은 UIWebView보다 몇 가지 추가 지원 기능이 있습니다.
+> IndexedDB는 인덱스를 사용하여 데이터를 관리하는 데 사용되는 데이터베이스이다. 인덱싱은 인덱스 및 저장된 데이터의 특정 도움말을 사용하여 데이터를 쉽게 식별하는 데 도움이 된다. SQL 데이터베이스 및 객체 지향 데이터베이스와 같다. 객체는 키를 사용하여 저장하고 검색할 수 있다.
+* 
+
+## ViewController.swift
+```swift
+class ViewController: UIViewController {
+    
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var webView: WKWebView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.request(url: "http://www.naver.com")
+    }
+    
+    @IBAction func back() {
+        if self.webView.canGoBack {
+            self.webView.goBack()
+        }
+    }
+    
+    @IBAction func forward() {
+        if self.webView.canGoForward {
+            self.webView.goForward()
+        }
+    }
+
+    func request(url: String) {
+        self.webView.load(URLRequest(url: URL(string: url)!))
+        self.webView.navigationDelegate = self
+    }
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.request(url: searchBar.text!)
+        self.view.endEditing(true)
+    }
+}
+
+extension ViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.searchBar.text = webView.url?.absoluteString
+    }
+}
+
+```
