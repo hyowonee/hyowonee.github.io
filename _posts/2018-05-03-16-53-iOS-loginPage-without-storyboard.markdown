@@ -220,11 +220,8 @@ class ViewController: UIViewController {
     }
     
     func successAlert() {
-//        let alertController = UIAlertController(title: nil, message: "로그인에 성공하였습니다!", preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-//        self.present(alertController, animated: true, completion: nil)
-        
         let settingViewController = SettingViewController()
+        // 이런 식으로 settingController로 넘겨 주었다.
         self.navigationController?.pushViewController(settingViewController, animated: true)
     }
     
@@ -288,3 +285,4 @@ class SettingViewController: UIViewController {
 탭으로 프로필 이미지와 배경 이미지를 바꾼 화면
 
 ![Image](/images/loginPage_without_storyboard_login_success.png)
+로그인 성공시 세팅 화면으로 넘어간 화면
