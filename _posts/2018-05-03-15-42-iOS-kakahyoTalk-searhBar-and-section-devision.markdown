@@ -45,7 +45,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // Set을 사용하면 중복되는 값이 사라지기 때문에 먼저 중복 값을 제외한
+        // Set을 사용하면 중복되는 값이 사라지기 때문에 먼저 중복 값을 제외한 수를 리턴
         return Array(Set(self.items.map { $0.first! })).count
     }
     
