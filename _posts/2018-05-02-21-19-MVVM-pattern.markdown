@@ -1,4 +1,0 @@
----
-title: MVVM Pattern
-author: Choi Hyowon
----
