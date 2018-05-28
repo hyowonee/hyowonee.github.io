@@ -1,0 +1,268 @@
+---
+title: iOS에서 Moya를 사용하고 간단한 TDD 구현하기
+author: Choi Hyowon
+---
+* Moya 라이브러리를 이용하여 API 프로토콜을 만들어 서버 API를 쉽게 호출하였다.
+* Then 라이브러리를 사용하여 클래스의 초기화를 쉽게 설정하였다.
+* storyboard를 사용하지 않고 SnapkKit을 사용하였다.
+* RxSwift와 RxCocoa 라이브러리를 사용하여 delegate의 설정 대신 rx코드로 대체하였다.
+* 간단한 TDD를 구현해 보았다.
+
+# TDD란?
+* TDD는 Test-driven Development의 약자로서 테스트 주도 개발방법론을 의미한다.
+
+## 일반적인 개발 프로세스
+![Image](/images/general_development.png)
+1. 어떻게 개발할지 디자인
+2. 디자인을 바탕으로 실제 코드를 작성
+3. 최종적으로 테스트를 작동시켜보는 과정
+
+## TDD(Test-driven Development)
+![Image](/images/TDD.jpg)
+* TDD는 실패하는 테스트를 작성하고(red), 작성된 테스트를 통과하는 코드를 작성한 후(green), 작성한 코드를 리팩토링하는(refactor) 세 단계를 거친다.
+
+### TDD의 장점
+* 소스코드 품질이 향상된다.
+> 필요한 코드만 작성하므로 사용하지 않는 코드를 짜지 않게 된다. 테스트를 통과한 코드만 존재하므로 디버깅 시간도 절약된다. 
+* 모듈화 디자인, 유지보수 용이성, 리팩토링 용이성과 테스트 코드 문서화라는 장점도 있다. 
+
+### TDD의 단점
+* 단점은 프로토타이핑을 빠른 시간 안에 마치고 결과를 보여줘야 하는 상황에는 부적합하며, 익숙해지는데 시간이 걸린다는 점이다.
+
+### TDD의 Rule
+* TDD에는 세 가지 룰(GIVEN, WHEN, THEN)이 있다. 
+* 테스트를 시작하기 위해 주어지는 전제를 GIVEN이라고 하고, 테스트하는 코드가 주는 결과를 WHEN, assertion을 THEN이라고 한다.
+> assertio이란 참·거짓을 미리 가정하는 문을 말한다.
+
+# Code
+## TDDExampleTests
+* 테스트 시, `import XCTest`가 필요하고, `@testable import TDDExample`로 테스트 대상을 지정한다.
+### PostTests.swift
+```swift
+@testable import TDDExample
+
+import Alamofire
+import AlamofireObjectMapper
+import ObjectMapper
+
+// TDD: Test Driven Development
+// 테스트는 곧 개발자에게 문서가 될 수 있음
+// 테스트는 로직의 신뢰성에 도움이 됨
+class PostTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+    }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
+    func testJsonMapping() { // 테스트할 메서드는 항상 맨앞에 'test'라는 이름이 붙어야함
+        let post = Post(JSONString: "{\"userId\": 1, \"id\": 1, \"title\": \"title\", \"body\": \"body\"}")
+        XCTAssertEqual(post?.userId, 1) //  값이 일치하는지 테스트하는 메서드
+        XCTAssertEqual(post?.id, 1)
+        XCTAssertEqual(post?.title, "title")
+        XCTAssertEqual(post?.body, "body")
+    }
+    
+    func testJsonPerformance() {
+        let expectationTest = XCTestExpectation(description: "Get Post data")
+        
+        Alamofire.request("https://jsonplaceholder.typicode.com/posts")
+            .responseArray(completionHandler: { (posts: DataResponse<[Post]>) in
+                expectationTest.fulfill() // 성공하면 fulfill 메서드 실행
+            })
+        
+        self.wait(for: [expectationTest], timeout: 1.0) // 1초안에 response가 안오면 에러로 처리
+    }   
+}
+```
+
+## 테스트 결과
+![Image](/images/iOS_TDD_Test.png)
+* Xcode 상위 메뉴 중 Product -> Test를 클릭한다.
+
+![Image](/images/iOS_TDD_success_result.png)
+* 테스트를 모두 통과
+
+## AppDelegate.swift
+* 앱 초기 기본 설정
+```swift
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        self.window = UIWindow()
+        
+        let navigationController = UINavigationController(rootViewController: PostListViewController(title: "Posts")).then {
+            $0.view.backgroundColor = .white
+            $0.navigationBar.barTintColor = .white
+        }
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
+        
+        return true
+    }
+}
+```
+
+## ViewControllers
+### BaseViewController.swift
+* BaseViewController에 공통되는 컨트롤러의 로직을 넣고 다른 컨트롤러에 상속시킨다.
+```swift
+class BaseViewController: UIViewController {
+    
+    // MARK: Initializing
+    
+    init(title: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.title = title
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Life Cycles
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
+```
+
+### PostListViewController.swift
+```swift
+class PostListViewController: BaseViewController {
+    
+    // MARK: Properties
+    let disposeBag = DisposeBag()
+    let tableView = UITableView().then {
+        $0.backgroundColor = .white
+    }
+    
+    // MARK: Life Cycles
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // PostCell라는 이름으로 ReuseIdentifier를 정의해줌
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PostCell")
+        
+        self.view.addSubview(self.tableView) // 테이블 뷰를 추가해줌
+        self.setupConstraint() // 뷰의 위치를 정해줌
+        self.fetchPosts() // 네트워크 호출
+    }
+    
+    // MARK: Setup UI Constraint
+    
+    func setupConstraint() {
+        self.tableView.snp.makeConstraints {
+            $0.top.right.bottom.left.equalToSuperview()
+        }
+    }
+    
+    // MARK: API 호출
+    
+    func fetchPosts() {
+        let provider = MoyaProvider<JSONPlaceholderAPI>() // MoyaProvider를 이용하여 API 호출 provider를 만들어줌
+        provider.rx.request(.posts) // Post 리스트를 가져오는 API를 호출
+            // ObjectMapper를 이용하여 json string을 Post 객체 리스트로 변환해줌
+            // response된 데이터를 string으로 변환해주고, 그 JsonString을 array형태의 객체로 만들어준다.
+            .map { return Mapper<Post>().mapArray(JSONString: try! $0.mapString())! }
+            // Observable 타입으로 변환
+            .asObservable()
+            // tableView에 bind해준다.
+            // tableView.rx.items는 파라메터로 cellFactory라는 것을 받는다.
+            // cellFactory는 정의된걸 보면 (UITableView, Int, S.Iterator.Element)이렇게 생겼다.
+            // S.Iterator.Element는 각각의 Observable 객체이다.
+            // ObservableType -> Observable<String>, Observable<Int>, Observable<Post> 등등 모두 될 수 있다.
+            // 따라서 items 메서드 내의 index는 int형, post는 내가 Post형으로 설정하였다.
+            // 그래서 결론적으로 .rx.items 메서드를 사용할 떄는 (UITableView, Int, S.Iterator.Element)타입의 클로저를 받는다.
+            // items 메서드가 이렇게 만든 Observer 객체를 리턴해주면 .bind에서 observer를 받아서 바로 subscribe를 해준다.
+            .bind(to: self.tableView.rx.items(cellIdentifier: "PostCell")) {
+                (index, post: Post, cell: UITableViewCell) in
+                cell.textLabel?.text = post.title
+            }.disposed(by: self.disposeBag)
+    }
+}
+```
+
+## Networking
+### JSONPlaceholderAPI.swift
+```swift
+enum JSONPlaceholderAPI {
+    case posts
+    case users
+}
+
+// Moya 라이브러리를 사용하여 JSONPlaceholderAPI라는 enum의 프로토콜을 만들었다.
+// Moya provider가 내부에서 변수를 사용하여 처리한다.
+extension JSONPlaceholderAPI: TargetType {
+    var baseURL: URL {
+        // baseURL은 API Endpoint를 의미한다.
+        return URL(string: "https://jsonplaceholder.typicode.com")!
+    }
+    
+    var path: String {
+        // path는 API 메서드를 정한다.
+        switch self { // switch를 통해 각 enum case마다 path를 정해줄 수 있다.
+        case .posts:
+            return "/posts"
+        case .users:
+            return "/users"
+        }
+    }
+    
+    var method: Moya.Method {
+        // 각 enum case마다 method를 정해 줄 수 있다.
+        // 여기서는 전부 GET을 쓰기 때문에 .get으로 지정
+        return .get
+    }
+    
+    var sampleData: Data {
+        // 샘플 데이터를 정해 줄 수 있다.
+        // 여기서는 딱히 안씀
+        return Data()
+    }
+    
+    var task: Task {
+        // 리퀘스트의 형태를 정할 수 있다.
+        // 여기서 파라메터를 넣을 수 있다.
+        return .requestPlain
+    }
+    
+    var headers: [String : String]? {
+        // 리퀘스트 헤더를 정할 수 있다.
+        // 여기서는 쓰이지 않아서 빈값으로 넣었다.
+        return nil
+    }
+}
+```
+
+## Models
+### Post.swift
+* ObjectMapper 라이브러리를 사용하여 Post 모델을 만들었다.
+```swift
+struct Post: Mappable {
+    var userId: Int = 0
+    var id: Int = 0
+    var title: String = ""
+    var body: String = ""
+    
+    init?(map: Map) {}
+    
+    mutating func mapping(map: Map) {
+        self.userId     <- map["userId"]
+        self.id         <- map["id"]
+        self.title      <- map["title"]
+        self.body       <- map["body"]
+    }
+}
+```
+
+## 결과
+![Image](/images/iOS_TDD_with_Moya_RxSwift_result.png)
