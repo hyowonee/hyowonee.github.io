@@ -37,6 +37,7 @@ author: Choi Hyowon
 # Code
 ## TDDExampleTests
 * 테스트 시, `import XCTest`가 필요하고, `@testable import TDDExample`로 테스트 대상을 지정한다.
+
 ### PostTests.swift
 ```swift
 @testable import TDDExample
