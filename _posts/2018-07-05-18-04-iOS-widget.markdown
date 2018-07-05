@@ -39,7 +39,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.newData)
     }
     
-    // 
+    // 버튼을 누르면 앱으로 이동
     @IBAction func openApp(_ sender: AnyObject) {
         let url: URL? = URL(string: "Quotes:")!
         
