@@ -1,0 +1,76 @@
+---
+title: iOS에서 간단한 widget 구현하기
+author: Choi Hyowon
+---
+* 간단한 위젯을 구현하였다.
+* 위젯에는 프로그레스바와 라벨을 표시하였다.
+* 기본적으로 위젯은 아무 이벤트가 구현되어 있지 않다. 따라서 앱으로 이동하는 버튼을 추가하였다.
+
+## 위젯 추가 설정
+![Image](/images/widget_target.png)
+File -> New -> Target으로 Target을 추가해준다.
+
+![Image](/images/widget_target_template.png)
+Target의 템플릿을 Today Extension으로 설정한다.
+
+![Image](/images/widget_target_quotes.png)
+Quotoes라는 이름의 Target이 추가되었다.
+
+## storyboard 연결
+![Image](/images/widget_storyboard.png)
+Quotoes의 MainInterface.storyboard에 프로그레스바, 라벨, 이동 버튼을 추가한다.
+
+## TodayViewController.swift
+```swift
+class TodayViewController: UIViewController, NCWidgetProviding {
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        var currentSize: CGSize = self.preferredContentSize
+        currentSize.height = 50.0
+        self.preferredContentSize = currentSize
+    }
+    
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+        completionHandler(NCUpdateResult.newData)
+    }
+    
+    // 
+    @IBAction func openApp(_ sender: AnyObject) {
+        let url: URL? = URL(string: "Quotes:")!
+        
+        if let appurl = url {
+            self.extensionContext!.open(appurl, completionHandler: nil)
+        }
+    }
+    
+}
+```
+> `var currentSize: CGSize = self.preferredContentSize`의 경우 widget의 크기를 조절하는 코드이지만 iOS11부터는 widget의 크기가 고정되었다.
+
+## Info.plist 설정 (WidgetApp의 Info.plist)
+* 위젯의 이동 버튼을 클릭하여 앱으로 이동하게 하기 위해서는 widget의 plist에 코드를 추가해야 한다.
+> plist에는 메타데이터가 담겨있다. 프로그램의 정보를 미리 정해두는걸 메타 데이터라고 한다.
+
+```swift
+<key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>Hyowonee.WidgetApp.Quotes</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>Quotes</string>
+            </array>
+        </dict>
+    </array>
+    <key>CFBundleDisplayName</key>
+    <string></string>
+```
+
+## 결과
+![Image](/images/widget_result.png)
