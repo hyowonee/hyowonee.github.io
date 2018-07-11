@@ -14,11 +14,11 @@ File -> New -> Target으로 Target을 추가해준다.
 Target의 템플릿을 Today Extension으로 설정한다.
 
 ![Image](/images/widget_target_quotes.png)
-Quotoes라는 이름의 Target이 추가되었다.
+Quotes라는 이름의 Target이 추가되었다.
 
 ## storyboard 연결
 ![Image](/images/widget_storyboard.png)
-Quotoes의 MainInterface.storyboard에 프로그레스바, 라벨, 이동 버튼을 추가한다.
+Quotes의 MainInterface.storyboard에 프로그레스바, 라벨, 이동 버튼을 추가한다.
 
 ## TodayViewController.swift
 ```swift
