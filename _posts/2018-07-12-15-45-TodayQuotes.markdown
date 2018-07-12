@@ -1,0 +1,20 @@
+---
+title: Today's Quotes 어플 프로젝트 1차
+author: Choi Hyowon
+---
+* Today's Quotes(오늘의 명언) 어플을 만들어서 배포하기로 하였다.
+* 어플의 기능은 다음과 같다.
+1. 폰트 선택 : 위젯에서 보여줄 명언의 폰트를 설정할 수 있다.
+2. 사진 선택 : 위젯의 배경 사진을 설정할 수 있다.
+3. 명언 히스토리 : 지금까지 본 명언을 리스트로 볼 수 있다.
+4. 갱신 시간 : 새로운 명언으로 갱신할 시간을 추가할 수 있다.
+5. 사용법 : 어플의 사용법을 간단하게 스크롤 뷰로 보여준다.
+6. 라이센스 : 어플에 쓰인 라이센스를 리스트로 보여준다.
+
+## Application View 설계
+어플의 설계를 oven을 사용하여 대략적으로 이미지화 하였다.
+https://ovenapp.io/project/cRD1bRkguaFaeUONQnlX4LvbJbIhx7bZ#XMYeb
+
+## storyboard 구현
+설계한 어플의 뷰를 storyboard에 구현하였다.
+![Image](/images/TodayQuotes_storyboard.png)
