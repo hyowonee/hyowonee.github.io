@@ -17,4 +17,4 @@ https://ovenapp.io/project/cRD1bRkguaFaeUONQnlX4LvbJbIhx7bZ#XMYeb
 
 ## storyboard 구현
 설계한 어플의 뷰를 storyboard에 구현하였다.
-![Image](/images/TodayQuotes_storyboard.png)
+![Image](/images/TodaysQuotes_storyboard.png)
