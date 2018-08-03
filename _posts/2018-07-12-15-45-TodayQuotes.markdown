@@ -29,6 +29,7 @@ https://ovenapp.io/project/cRD1bRkguaFaeUONQnlX4LvbJbIhx7bZ#XMYeb
 ![Image](/images/TodaysQuotes_storyboard_arrange.png)
 3. MainView에 AutoLayout을 적용하였는데, 3x2형태의 Grid를 적용시키고 싶었다.
 -> 코드와 적절히 섞어서 해결하는 방법을 찾았다.
+{% include constraintExample.html id="https://youtu.be/C3NqbKZk_g8" %}  
 4. 데이터베이스에 데이터를 넣기 전 임시로 Kingfisher 라이브러리를 이용하여 이미지를 넣어놓았는데, 이미지가 나타나지 않았다.
 -> Info.plist의 다음의 코드를 추가하니 해결되었다.
 
