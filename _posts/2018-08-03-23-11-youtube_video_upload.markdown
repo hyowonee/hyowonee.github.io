@@ -18,7 +18,7 @@ author: Choi Hyowon
 3. 동영상을 삽입할 자리에 
 
 ```
-{% include constraintExample.html id="C3NqbKZk_g8" %}
+{\% include constraintExample.html id="C3NqbKZk_g8" \%}
 ``` 
 코드를 삽입한다. 물론 id는 자신의 동영상 id를 사용해야 한다.
 
