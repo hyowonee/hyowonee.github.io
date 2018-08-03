@@ -8,6 +8,7 @@ author: Choi Hyowon
 
 1. blog `_includes` 폴더에 `constraintExample.html`이라는 업로드를 위한 html 파일을 만든다.
 2. `constraintExample.html`안에 다음과 같은 코드를 삽입해준다.
+
 ```html
 <iframe width="730" height="500" src="https://www.youtube.com/embed/id" frameborder="0" allowfullscreen></iframe>
 ```
