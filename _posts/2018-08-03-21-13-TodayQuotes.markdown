@@ -1,0 +1,13 @@
+---
+title: Today's Quotes 어플 프로젝트 2차
+author: Choi Hyowon
+---
+* 남은 해야하는 일 체크
+1. 명언 수집 후 json파일로 만들기
+> 현재 테스트용 일부만 수집
+2. scrollView에 paging 적용하기
+3. Realm에 데이터 삽입
+> 명언 데이터만 삽입하였고 사진 데이터, 시간 데이터를 삽입하여야 함.
+4. imagePicker로 앨범 연동하기
+5. 시간 추가하는 기능 만들기
+
