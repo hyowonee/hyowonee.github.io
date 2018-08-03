@@ -15,7 +15,12 @@ author: Choi Hyowon
 너비와 높이는 자유롭게 설정한다. 처음에 id 자리를 비워놔서 동영상 재생에 에러가 생겼다. 
 자신의 유튜브 동영상 링크를 보면 `https://www.youtube.com/watch?v=C3NqbKZk_g8` 이런식으로 되어있는데, `watch?v=` 뒤의 것이 id가 된다.
 
-3. 동영상을 삽입할 자리에 `{% include constraintExample.html id="C3NqbKZk_g8" %}` 코드를 삽입한다. 물론 id는 자신의 동영상 id를 사용해야 한다.
+3. 동영상을 삽입할 자리에 
+
+```
+{% include constraintExample.html id="C3NqbKZk_g8" %}
+``` 
+코드를 삽입한다. 물론 id는 자신의 동영상 id를 사용해야 한다.
 
 ## 결과
 ![Image](/images/youtube_video.png)
