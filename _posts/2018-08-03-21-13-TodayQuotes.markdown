@@ -6,8 +6,124 @@ author: Choi Hyowon
 1. 명언 수집 후 json파일로 만들기
 > 현재 테스트용 일부만 수집
 2. scrollView에 paging 적용하기
+> 완료, 이번 장에 포스팅
 3. Realm에 데이터 삽입
 > 명언 데이터만 삽입하였고 사진 데이터, 시간 데이터를 삽입하여야 함.
 4. imagePicker로 앨범 연동하기
+> 완료, 이번 장에 포스팅
 5. 시간 추가하는 기능 만들기
+> 완료
+6. 명언 업데이트 + 위젯에 띄우기
+> 완료 
+7. 스토리보드 설계 구체적으로 수정
+> 진행중
 
+## 2. scrollView에 paging 적용하기
+### ManualViewController.swift
+
+```swift
+class ManualViewController: UIViewController {
+
+    @IBOutlet var manualScrollView: UIScrollView!
+    @IBOutlet var pageControl: UIPageControl!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        for page in 0..<3 {
+            let manualView = UIImageView()
+            // 총 3 페이지로 넘어가게끔 설정
+            manualView.frame.origin.x = UIScreen.main.bounds.width * CGFloat(page)
+            manualScrollView.addSubview(manualView)
+        }
+        
+        self.manualScrollView.isPagingEnabled = true
+        self.manualScrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 3, height: self.manualScrollView.frame.size.height)
+        // 위아래 스크롤 막기
+        self.manualScrollView.alwaysBounceVertical = false
+        
+        self.pageControl.numberOfPages = 3
+    }
+    
+    @IBAction func close() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+}
+
+extension ManualViewController: UIScrollViewDelegate {
+    // 현재 스크롤된 페이지 표시
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(floor(manualScrollView.contentOffset.x / UIScreen.main.bounds.width))
+    }
+}
+```
+
+## 결과
+![Image](/images/TodaysQuotes_paging_result.png)
+
+## 4. imagePicker로 앨범 연동하기
+### PhotoListViewController.swift
+
+```swift
+class PhotoListViewController: UIViewController {
+    
+    @IBOutlet var photoCollectionView: UICollectionView!
+    
+    // 데이터베이스 안의 이미지 수로 변경 해야함
+    var photos: [UIImage] = []
+    let picker = UIImagePickerController()
+    var newImage: UIImage? = nil
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // picker는 앨범을 열도록 설정
+        self.picker.sourceType = .photoLibrary
+        self.picker.allowsEditing = false
+        self.picker.delegate = self
+    }
+    
+    @IBAction func addPhoto() {
+        self.present(self.picker, animated: true)
+        
+    }
+}
+
+extension PhotoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
+        photoCell.photoView.image = newImage
+        return photoCell
+    }
+}
+
+extension PhotoListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        //        var newImage: UIImage? = nil
+        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            newImage = possibleImage
+        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            newImage = possibleImage
+        }
+        
+        self.photos.append(newImage!)
+        self.photoCollectionView.insertItems(at: [IndexPath(row: self.photos.count - 1, section: 0)])
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+```
+
+## 결과
+![Image](/images/TodaysQuotes_image_picker_result.png)
